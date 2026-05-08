@@ -19,7 +19,7 @@ repos:
     hooks:
       - id: json-jq
         name: validate json (jq)
-        entry: bash -lc 'jq -e . "$@" >/dev/null'
+        entry: bash -lc 'jq -e . "$@" >/dev/null' --
         language: system
         files: \.json$
         exclude: \.jsonc$
@@ -29,7 +29,7 @@ repos:
         entry: node -e "JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'))"
         language: system
         files: \.jsonc$
-        pass_filenames: true   # <-- THIS IS THE FIX
+        pass_filenames: true
 
       - id: desktop-file-validate
         name: validate .desktop files
@@ -52,5 +52,3 @@ exclude: |
     \.exported/|
     \.local/share/
   )
-
-
