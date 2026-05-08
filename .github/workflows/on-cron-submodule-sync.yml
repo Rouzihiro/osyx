@@ -1,0 +1,49 @@
+name: Sync Submodules 4 times a day
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
+
+jobs:
+  submodule-sync:
+    name: Submodule update
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          submodules: true
+          fetch-depth: 0
+
+      - name: Configure Git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Init top-level submodules (shallow)
+        run: |
+          set -euo pipefail
+          git submodule sync
+          git submodule update --init --depth 1
+
+      - name: Pull latest commits
+        run: |
+          set -euo pipefail
+          git submodule foreach '
+            set -e
+            echo "Updating $name..."
+            git fetch --depth=1 origin || true
+            git checkout main || git checkout master
+            git pull --ff-only origin HEAD
+          '
+
+      - name: Commit & push updates
+        run: |
+          git add .
+          git commit -m "update submodule references [skip actions]" || echo "No changes"
+          git push || echo "No push needed"

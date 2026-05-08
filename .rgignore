@@ -1,0 +1,116 @@
+# version control
+.git/
+.gitmodules
+.gitignore
+
+# node / js / ts
+node_modules/
+dist/
+build/
+.out/
+.next/
+.nuxt/
+.svelte-kit/
+.turbo/
+.esbuild/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+.env
+.env.*
+
+# rust
+target/
+Cargo.lock
+
+# go
+bin/
+pkg/
+vendor/
+
+# java / jvm
+.gradle/
+.mvn/
+target/
+*.class
+
+# containers
+.docker/
+docker-data/
+*.log
+
+# nix
+.result
+result
+.nix-profile/
+.direnv/
+
+# build artifacts (generic)
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+*.dll
+*.wasm
+
+# media / binary junk
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.mp4
+*.mkv
+*.mp3
+*.wav
+*.flac
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.pdf
+
+# editor / ide
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.tmp
+
+# caches
+.cache/
+.cache/**
+tmp/
+temp/
+
+# logs
+logs/
+*.log
+
+# secrets (never grep by default)
+*.key
+*.pem
+*.crt
+*.p12
+*.keystore
+*.asc
+*.gpg
+*.crrp
+
+# misc noise
+.DS_Store
+Thumbs.db
+

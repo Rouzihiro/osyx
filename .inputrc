@@ -1,0 +1,100 @@
+# -----------------------------
+# core behavior
+# -----------------------------
+
+set editing-mode emacs
+set keymap emacs
+
+set bell-style none
+set echo-control-characters off
+set show-all-if-ambiguous on
+set menu-complete-display-prefix on
+set completion-ignore-case on
+set completion-map-case on
+set mark-symlinked-directories on
+
+# -----------------------------
+# sane history
+# -----------------------------
+
+set history-preserve-point on
+set history-size 50000
+set enable-keypad on
+
+# up/down search by prefix, not blind cycling
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# ctrl+p / ctrl+n same behavior
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
+# -----------------------------
+# word movement & deletion
+# -----------------------------
+
+# alt+b / alt+f jump by word
+"\eb": backward-word
+"\ef": forward-word
+
+# alt+backspace deletes word backward
+"\e\C-h": backward-kill-word
+
+# ctrl+backspace (many terminals)
+"\C-h": backward-kill-word
+
+# ctrl+delete deletes word forward
+"\e[3;5~": kill-word
+
+# ctrl+w deletes word, not path nuking
+set bind-tty-special-chars off
+
+# -----------------------------
+# line editing
+# -----------------------------
+
+# ctrl+a / ctrl+e already start/end, keep default
+# ctrl+u kills to start, ctrl+k kills to end
+
+# ctrl+l clears screen but keeps line
+"\C-l": clear-screen
+
+# -----------------------------
+# completion behavior
+# -----------------------------
+
+# tab cycles matches instead of dumping
+TAB: menu-complete
+"\e[Z": menu-complete-backward
+
+# show matches immediately
+set page-completions off
+
+# -----------------------------
+# meta / alt sanity (critical)
+# -----------------------------
+
+set meta-flag on
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# -----------------------------
+# quotes & brackets
+# -----------------------------
+
+# don’t auto-complete quotes weirdly
+set completion-query-items 200
+
+# -----------------------------
+# application-specific overrides
+# -----------------------------
+
+$if Python
+  TAB: complete
+$endif
+
+$if Node
+  TAB: complete
+$endif
+

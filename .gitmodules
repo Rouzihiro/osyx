@@ -1,0 +1,59 @@
+[submodule "thyx"]
+    path = thyx
+  	url = https://github.com/rccyx/thyx.git
+
+[submodule "asryx"]
+    path = asryx
+  	url = https://github.com/rccyx/asryx.git
+
+[submodule "powyx"]
+    path = powyx
+  	url = https://github.com/rccyx/powyx.git
+
+[submodule "lookas"]
+    path = lookas
+  	url = https://github.com/rccyx/lookas.git
+
+[submodule "hyprtryx"]
+    path = hyprtryx
+  	url = https://github.com/rccyx/hyprtryx.git
+
+[submodule "hypr"]
+    path = .config/hypr
+  	url = https://github.com/rccyx/hypr.git
+
+[submodule "starship"]
+    path = starship
+  	url = https://github.com/rccyx/starship.git
+
+[submodule "dircolors"]
+    path = dircolors
+  	url = https://github.com/rccyx/dircolors.git
+
+[submodule "kitty"]
+    path = .config/kitty
+  	url = https://github.com/rccyx/kitty.git
+
+[submodule "mako"]
+    path = .config/mako
+  	url = https://github.com/rccyx/mako.git
+
+[submodule "tmux"]
+    path = tmux
+  	url = https://github.com/rccyx/tmux.git
+
+[submodule ".gnupg"]
+    path = .gnupg
+  	url = https://github.com/rccyx/.gnupg.git
+
+[submodule ".ssh"]
+    path = .ssh
+  	url = https://github.com/rccyx/.ssh.git
+
+[submodule "nvim"]
+    path = .config/nvim
+  	url = https://github.com/rccyx/nvim.git
+
+[submodule "gnome"]
+    path = gnome/gnome
+	url = https://github.com/rccyx/gnome.git

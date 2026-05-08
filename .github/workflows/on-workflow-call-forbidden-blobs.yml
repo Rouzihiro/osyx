@@ -1,0 +1,82 @@
+name: forbidden-blobs
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  blobs:
+    runs-on: ubuntu-latest
+    env:
+      MAX_BYTES: "2097152" # 2 MiB
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Block forbidden blobs
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          MAX_BYTES="${MAX_BYTES:-2097152}"
+
+          # Allowed buckets for binaries / assets
+          allow_dir_re='^(\.wallpapers/|\.icons/|\.themes/|\.terminfo/|dircolors/|\.local/share/fonts/)'
+
+          # Hard-forbidden sensitive blobs (unencrypted)
+          forbid_re='(^|/)(id_rsa|id_ed25519|.*\.pem|.*\.key|.*\.p12|.*\.pfx|.*\.kdbx|.*\.sqlite|.*\.db|.*\.ovpn|.*\.env(\..*)?|.*\.dump|.*\.bak|.*\.swp|.*\.secrets?)$'
+
+          fail=0
+
+          git ls-files -z | while IFS= read -r -d '' f; do
+            # 0. skip directories
+            if [[ -d "$f" ]]; then
+              continue
+            fi
+
+            # 1. skip encrypted files
+            if [[ "$f" == *.gpg ]]; then
+              continue
+            fi
+
+            # 2. forbidden sensitive blobs
+            if [[ ! "$f" =~ $allow_dir_re ]] && [[ "$f" =~ $forbid_re ]]; then
+              echo "FORBIDDEN FILE: $f"
+              fail=1
+              continue
+            fi
+
+            # 3. size gate (outside allowed dirs)
+            if [[ ! "$f" =~ $allow_dir_re ]]; then
+              sz="$(stat -c '%s' "$f" 2>/dev/null || echo 0)"
+              if [[ "$sz" -gt "$MAX_BYTES" ]]; then
+                echo "TOO LARGE (${sz} bytes > ${MAX_BYTES}): $f"
+                fail=1
+              fi
+            fi
+
+            # 4. empty files are fine (.gitkeep etc)
+            if [[ ! -s "$f" ]]; then
+              continue
+            fi
+
+            # 5. binary detection (outside allowed dirs)
+            if [[ ! "$f" =~ $allow_dir_re ]]; then
+              if grep -Iq . "$f"; then
+                :
+              else
+                echo "BINARY OUTSIDE ALLOWED DIRS: $f"
+                fail=1
+              fi
+            fi
+          done
+
+          if [[ "$fail" -ne 0 ]]; then
+            echo "Forbidden blob check failed."
+            exit 1
+          fi
+
+          echo "OK: no forbidden blobs detected."

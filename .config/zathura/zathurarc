@@ -1,0 +1,96 @@
+" =========================
+" Theme
+" =========================
+
+" Core palette
+set default-bg              "#0B0F14"   " deep base (less blue, more ink)
+set default-fg              "#C7D0DB"   " main text
+
+set statusbar-bg            "#0F1620"   " slightly lifted surface
+set statusbar-fg            "#7DE3D8"   " accent but not neon
+
+set inputbar-bg             "#0B0F14"
+set inputbar-fg             "#C7D0DB"
+
+" Notifications (separate warning vs error)
+set notification-error-bg   "#E24D5C"   " danger
+set notification-error-fg   "#0B0F14"
+
+set notification-warning-bg "#E6B450"   " warning/amber
+set notification-warning-fg "#0B0F14"
+
+set notification-bg         "#1A2330"   " neutral info
+set notification-fg         "#C7D0DB"
+
+" Highlights (selection + active selection)
+set highlight-color         "#2A3646"   " subtle selection background
+set highlight-active-color  "#7DE3D8"   " active selection accent
+
+" Completion menu
+set completion-bg           "#0F1620"
+set completion-fg           "#C7D0DB"
+set completion-highlight-bg "#1A2330"
+set completion-highlight-fg "#7DE3D8"
+
+" Recolor (PDF inversion mode)
+set recolor                 "true"
+set recolor-lightcolor      "#0B0F14"
+set recolor-darkcolor       "#C7D0DB"
+set recolor-reverse-video   "true"
+set recolor-keephue         "true"      " keeps charts/images less cursed
+
+" =========================
+" Behavior
+" =========================
+
+" Clipboard
+set selection-clipboard clipboard
+
+" Search
+set incremental-search true
+set search-hadjust true
+
+" Autoadjust
+set adjust-open width
+
+" Typography (remmber to bump size if you're on HiDPI)
+set font "Terminus 12"
+
+" =========================
+" Mappings
+" =========================
+
+" Zoom in/out
+map [normal]     z zoom in
+map [normal]     Z zoom out
+map [fullscreen] z zoom in
+map [fullscreen] Z zoom out
+
+" Toggle mode
+map [normal]     D toggle_page_mode
+map [fullscreen] D toggle_page_mode
+
+" Scroll
+map [normal]     u scroll half-up
+map [normal]     d scroll half-down
+map [fullscreen] u scroll half-up
+map [fullscreen] d scroll half-down
+
+" Reload
+map [normal]     <C-r> reload
+map [fullscreen] <C-r> reload
+
+" Status bar
+map [normal]     b toggle_statusbar
+map [fullscreen] b toggle_statusbar
+
+" Set width as in mupdf
+map [normal]     H adjust_window best-fit
+map [normal]     W adjust_window width
+map [fullscreen] H adjust_window best-fit
+map [fullscreen] W adjust_window width
+
+" Recolor toggle
+map [normal]     i set recolor
+map [fullscreen] i set recolor
+

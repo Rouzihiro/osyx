@@ -1,0 +1,23 @@
+[tools]
+node = "lts"
+python = "3.12"
+go = "latest"
+rust = "stable"
+
+ripgrep = "latest"
+fd = "latest"
+bat = "latest"
+eza = "latest"
+fzf = "0.65.1"
+gh = "2.46.0"
+
+[settings]
+shims_dir = "~/.local/share/mise/shims"
+legacy_version_file = true
+
+asdf_compat = true
+always_keep_download = false
+plugin_autoupdate_last_check_duration = "7d"
+
+jobs = 4
+verbose = false

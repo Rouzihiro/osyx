@@ -1,0 +1,52 @@
+# =========================================================
+# core movement (vim-normal, no surprises)
+# =========================================================
+j          forward-line
+k          backward-line
+h          backward-char
+l          forward-char
+
+# faster vertical movement
+ctrl-d     forward-half-screen
+ctrl-u     backward-half-screen
+ctrl-f     forward-screen
+ctrl-b     backward-screen
+
+# absolute positioning
+g          goto-line
+G          goto-end
+
+# =========================================================
+# search (vim semantics)
+# =========================================================
+/          search-forward
+?          search-backward
+n          repeat-search
+N          reverse-search
+
+# =========================================================
+# horizontal scroll (wide output, json, logs)
+# =========================================================
+H          backward-column
+L          forward-column
+
+# =========================================================
+# safe paging
+# =========================================================
+space      forward-screen
+ctrl-space forward-screen
+
+# =========================================================
+# quit discipline (no accidental exits)
+# =========================================================
+q          quit
+Q          quit
+
+# =========================================================
+# explicitly disabled keys (match your nvim hygiene)
+# =========================================================
+ESC        nothing
+ctrl-z     nothing
+ctrl-s     nothing
+ctrl-q     nothing
+

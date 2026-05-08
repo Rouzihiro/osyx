@@ -1,0 +1,8 @@
+set main-view = id date author commit-title:graph=yes,refs=yes
+set focus-view = yes
+set vertical-split = yes
+
+bind main G !gh browse --commit %(commit)
+
+color cursor black green bold
+color title-focus white blue bold

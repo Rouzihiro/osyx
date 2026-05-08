@@ -1,0 +1,4 @@
+other/apt-keys/trusted.gpg.d/*~
+other/apt-sources/sources.list.d/*.list.save
+other/apt-sources/sources.list.d/*.list.distUpgrade
+now/

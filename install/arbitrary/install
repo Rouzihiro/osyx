@@ -1,0 +1,376 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+VERSION="0.1.0"
+
+C_RESET="$(tput sgr0 2>/dev/null || true)"
+C_BOLD="$(tput bold 2>/dev/null || true)"
+C_DIM="$(tput dim 2>/dev/null || true)"
+C_RED="$(tput setaf 1 2>/dev/null || true)"
+C_GRN="$(tput setaf 2 2>/dev/null || true)"
+C_YLW="$(tput setaf 3 2>/dev/null || true)"
+C_BLU="$(tput setaf 4 2>/dev/null || true)"
+
+log(){ printf "%s\n" "$*"; }
+info(){ printf "%s%s%s %s\n" "$C_BLU" "[info]" "$C_RESET" "$*"; }
+ok(){ printf "%s%s%s %s\n" "$C_GRN" "[ok]" "$C_RESET" "$*"; }
+warn(){ printf "%s%s%s %s\n" "$C_YLW" "[warn]" "$C_RESET" "$*"; }
+err(){ printf "%s%s%s %s\n" "$C_RED" "[err]" "$C_RESET" "$*" >&2; }
+die(){ err "$*"; exit 1; }
+
+trap 'err "failed at line $LINENO: $BASH_COMMAND"' ERR
+
+have(){ command -v "$1" >/dev/null 2>&1; }
+
+as_root(){
+  if [[ "${EUID:-$(id -u)}" -eq 0 ]]; then "$@"; return 0; fi
+  if have sudo; then sudo -E "$@"; return 0; fi
+  have su || die "need sudo or su"
+  local cmd=""
+  local q
+  for q in "$@"; do cmd+=" $(printf "%q" "$q")"; done
+  su -pc "${cmd# }" root
+}
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+SELF_BASENAME="$(basename -- "${BASH_SOURCE[0]}")"
+
+XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+STATE_DIR="$XDG_STATE_HOME/osyx-install"
+CACHE_DIR="$XDG_CACHE_HOME/osyx-install"
+LOG_DIR="$CACHE_DIR/logs"
+STATE_FILE="$STATE_DIR/state.env"
+
+mk_dirs(){ mkdir -p "$STATE_DIR" "$CACHE_DIR" "$LOG_DIR"; }
+now_stamp(){ date +"%Y%m%d-%H%M%S"; }
+
+start_logging(){
+  mk_dirs
+  local runlog="$LOG_DIR/$(now_stamp)-${CMD:-noop}.log"
+  exec > >(tee -a "$runlog") 2>&1
+  log "${C_BOLD}osyx-install${C_RESET} v$VERSION"
+  log "dir:   $SCRIPT_DIR"
+  log "cmd:   ${CMD:-}"
+  log "user:  $USER"
+  log "uid:   $(id -u)"
+  log "log:   $runlog"
+  log ""
+}
+
+save_state_kv(){
+  local k="$1" v="$2"
+  mkdir -p "$(dirname "$STATE_FILE")"
+  [[ -f "$STATE_FILE" ]] || : >"$STATE_FILE"
+  local k_esc
+  k_esc="$(printf '%s' "$k" | sed -e 's/[.[\*^$()+?{|}/\\&/g' -e 's/]/\\]/g')"
+  if grep -qE "^${k_esc}=" "$STATE_FILE"; then
+    sed -ri "s|^${k_esc}=.*|${k}=${v}|" "$STATE_FILE"
+  else
+    printf "%s=%s\n" "$k" "$v" >>"$STATE_FILE"
+  fi
+}
+
+load_state(){
+  [[ -f "$STATE_FILE" ]] || return 0
+  local line k v
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    [[ -n "$line" ]] || continue
+    case "$line" in \#*) continue ;; esac
+    IFS='=' read -r k v <<<"$line"
+    [[ -n "${k:-}" ]] || continue
+    if [[ "$k" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+      printf -v "$k" '%s' "${v-}"
+      export "$k"
+    fi
+  done <"$STATE_FILE"
+}
+
+contains_csv(){
+  local csv="$1" needle="$2"
+  [[ -n "$csv" ]] || return 1
+  local x
+  IFS=',' read -r -a arr <<<"$csv"
+  for x in "${arr[@]}"; do
+    [[ "${x}" == "${needle}" ]] && return 0
+  done
+  return 1
+}
+
+list_modules(){
+  local f b
+  while IFS= read -r -d '' f; do
+    b="$(basename -- "$f")"
+    [[ "$b" == "$SELF_BASENAME" ]] && continue
+    [[ "$b" == ".all" ]] && continue
+    [[ "$b" == "_lib.sh" ]] && continue
+    [[ "$b" == .* ]] && continue
+    [[ -f "$f" ]] || continue
+    printf "%s\n" "$b"
+  done < <(find "$SCRIPT_DIR" -maxdepth 1 -type f -print0)
+}
+
+default_bins_for(){
+  local name="$1"
+  case "$name" in
+    chrome) printf "google-chrome,google-chrome-stable" ;;
+    brave) printf "brave-browser,brave" ;;
+    aws) printf "aws" ;;
+    gh) printf "gh" ;;
+    go) printf "go" ;;
+    node) printf "node,npm" ;;
+    pnpm) printf "pnpm" ;;
+    bun) printf "bun" ;;
+    rust) printf "rustc,cargo" ;;
+    docker) printf "docker,docker-compose" ;;
+    terraform) printf "terraform" ;;
+    uv) printf "uv" ;;
+    poetry) printf "poetry" ;;
+    conda) printf "conda" ;;
+    koyeb) printf "koyeb" ;;
+    doppler) printf "doppler" ;;
+    keybase) printf "keybase" ;;
+    broot) printf "broot" ;;
+    cava) printf "cava" ;;
+    nwg-look) printf "nwg-look" ;;
+    *) printf "%s" "$name" ;;
+  esac
+}
+
+read_meta_line(){
+  local path="$1"
+  local line
+  line="$(grep -m1 -E '^[[:space:]]*#?[[:space:]]*osyx:' "$path" 2>/dev/null || true)"
+  [[ -n "$line" ]] || return 1
+  printf "%s" "$line"
+}
+
+meta_get(){
+  local meta="$1" key="$2"
+  printf "%s" "$meta" | sed -nE "s/.*\b${key}=([^ ]+).*/\1/p" | head -n1
+}
+
+module_path(){
+  local name="$1"
+  printf "%s" "$SCRIPT_DIR/$name"
+}
+
+module_bins(){
+  local name="$1"
+  local p; p="$(module_path "$name")"
+  local meta; meta="$(read_meta_line "$p" || true)"
+  local bins=""
+  if [[ -n "$meta" ]]; then
+    bins="$(meta_get "$meta" "bins" || true)"
+    bins="${bins#\"}"; bins="${bins%\"}"
+  fi
+  if [[ -z "$bins" ]]; then
+    bins="$(default_bins_for "$name")"
+  fi
+  printf "%s" "$bins"
+}
+
+module_desc(){
+  local name="$1"
+  local p; p="$(module_path "$name")"
+  local meta; meta="$(read_meta_line "$p" || true)"
+  local desc=""
+  if [[ -n "$meta" ]]; then
+    desc="$(meta_get "$meta" "desc" || true)"
+    desc="${desc#\"}"; desc="${desc%\"}"
+  fi
+  [[ -n "$desc" ]] || desc="$name installer"
+  printf "%s" "$desc"
+}
+
+module_installed(){
+  local name="$1"
+  local bins; bins="$(module_bins "$name")"
+  local b
+  IFS=',' read -r -a arr <<<"$bins"
+  for b in "${arr[@]}"; do
+    [[ -n "$b" ]] || continue
+    if have "$b"; then return 0; fi
+  done
+  return 1
+}
+
+module_supports_subcmd(){
+  local p="$1"
+  local first
+  first="$(head -n1 "$p" 2>/dev/null || true)"
+  [[ "$first" == *bash* || "$first" == *zsh* || "$first" == *env* ]] || return 1
+  if grep -qE '^[[:space:]]*(case|if)[[:space:]]+.*(plan|apply|doctor|status)' "$p" 2>/dev/null; then
+    return 0
+  fi
+  return 1
+}
+
+run_module(){
+  local name="$1"
+  local sub="${2:-apply}"
+  local p; p="$(module_path "$name")"
+  [[ -f "$p" ]] || die "unknown module: $name"
+  chmod +x "$p" >/dev/null 2>&1 || true
+
+  info "running: $name ($sub)"
+  if module_supports_subcmd "$p"; then
+    "$p" "$sub"
+  else
+    if [[ "$sub" != "apply" ]]; then
+      warn "$name is legacy (no $sub). skipping."
+      return 0
+    fi
+    "$p"
+  fi
+}
+
+usage(){
+  cat <<EOF
+${C_BOLD}osyx-install${C_RESET} v$VERSION
+
+usage:
+  osyx-install list
+  osyx-install status
+  osyx-install plan [--only=a,b] [--skip=a,b]
+  osyx-install apply [--only=a,b] [--skip=a,b] [--yes] [--dry-run]
+  osyx-install doctor
+  osyx-install state
+
+meta (optional) inside each module script:
+  add a line near the top:
+    # osyx: desc="aws cli v2" bins="aws"
+
+EOF
+}
+
+ONLY=""
+SKIP=""
+YES=0
+DRY=0
+
+parse_flags(){
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --only=*) ONLY="${1#*=}" ;;
+      --skip=*) SKIP="${1#*=}" ;;
+      --yes) YES=1 ;;
+      --dry-run) DRY=1 ;;
+      -h|--help) usage; exit 0 ;;
+      *) die "unknown flag: $1" ;;
+    esac
+    shift
+  done
+}
+
+want_module(){
+  local name="$1"
+  if [[ -n "$ONLY" ]] && ! contains_csv "$ONLY" "$name"; then return 1; fi
+  if [[ -n "$SKIP" ]] && contains_csv "$SKIP" "$name"; then return 1; fi
+  return 0
+}
+
+cmd_list(){
+  start_logging
+  local m
+  for m in $(list_modules | sort); do
+    printf "%s\n" "$m"
+  done
+}
+
+cmd_status(){
+  start_logging
+  local m
+  for m in $(list_modules | sort); do
+    local bins; bins="$(module_bins "$m")"
+    local desc; desc="$(module_desc "$m")"
+    if module_installed "$m"; then
+      printf "%s%s%s %s%s%s  bins=%s\n" "$C_GRN" "[yes]" "$C_RESET" "$C_BOLD" "$m" "$C_RESET" "$bins"
+    else
+      printf "%s%s%s %s%s%s  bins=%s\n" "$C_RED" "[no ]" "$C_RESET" "$C_BOLD" "$m" "$C_RESET" "$bins"
+    fi
+    printf "      %s\n" "$desc"
+  done
+}
+
+cmd_plan(){
+  start_logging
+  parse_flags "$@"
+  local m any=0
+  log "${C_BOLD}Plan${C_RESET}"
+  for m in $(list_modules | sort); do
+    want_module "$m" || continue
+    if module_installed "$m"; then
+      printf "  = %s (already installed)\n" "$m"
+    else
+      printf "  + %s\n" "$m"
+      any=1
+    fi
+  done
+  [[ "$any" -eq 1 ]] || log "  = nothing to install"
+}
+
+cmd_apply(){
+  start_logging
+  parse_flags "$@"
+
+  if [[ "$YES" -ne 1 && "$DRY" -ne 1 ]]; then
+    warn "confirmation required"
+    log "re-run with: --yes"
+    exit 2
+  fi
+
+  local m
+  for m in $(list_modules | sort); do
+    want_module "$m" || continue
+    if module_installed "$m"; then
+      ok "skip: $m (already installed)"
+      continue
+    fi
+    if [[ "$DRY" -eq 1 ]]; then
+      info "dry-run: would install $m"
+      continue
+    fi
+    run_module "$m" apply
+    save_state_kv "OSYX_INSTALLED_${m^^}" "$(date -Is 2>/dev/null || date)"
+  done
+
+  ok "done"
+}
+
+cmd_doctor(){
+  start_logging
+  log "${C_BOLD}doctor${C_RESET}"
+  log "shell:  ${SHELL:-unknown}"
+  log "sudo:   $(have sudo && echo yes || echo no)"
+  log "apt:    $(have apt-get && echo yes || echo no)"
+  log "curl:   $(have curl && echo yes || echo no)"
+  log "git:    $(have git && echo yes || echo no)"
+  log "zsh:    $(have zsh && echo yes || echo no)"
+  log ""
+  cmd_status
+}
+
+cmd_state(){
+  start_logging
+  load_state
+  if [[ -f "$STATE_FILE" ]]; then
+    sed -n 's/^/  /p' "$STATE_FILE"
+  else
+    log "  (no state yet)"
+  fi
+}
+
+CMD="${1:-}"
+shift || true
+
+case "$CMD" in
+  list) cmd_list ;;
+  status) cmd_status ;;
+  plan) cmd_plan "$@" ;;
+  apply) cmd_apply "$@" ;;
+  doctor) cmd_doctor ;;
+  state) cmd_state ;;
+  ""|-h|--help|help) usage ;;
+  *) die "unknown command: $CMD" ;;
+esac

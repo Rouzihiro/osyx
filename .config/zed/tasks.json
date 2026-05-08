@@ -1,0 +1,26 @@
+{
+  "version": "1",
+  "tasks": [
+    {
+      "label": "tsc",
+      "command": "pnpm tsc --noEmit",
+      "reveal": "never"
+    },
+    {
+      "label": "lint",
+      "command": "pnpm lint",
+      "reveal": "never"
+    },
+    {
+      "label": "test",
+      "command": "pnpm test",
+      "reveal": "never"
+    },
+    {
+      "label": "cargo check",
+      "command": "cargo check",
+      "reveal": "never"
+    }
+  ]
+}
+

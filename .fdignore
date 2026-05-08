@@ -1,0 +1,125 @@
+# vcs
+.git
+.hg
+.svn
+
+# node / js / ts
+node_modules
+.pnpm-store
+.yarn
+.yarn-cache
+.yarn-state.yml
+.yarnrc.yml
+.turbo
+.next
+.out
+dist
+build
+coverage
+.nyc_output
+.eslintcache
+.vite
+.parcel-cache
+.svelte-kit
+
+# rust
+target
+**/*.rs.bk
+.cargo
+.cargo-cache
+
+# python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.venv
+venv
+.env
+.envrc
+.uv
+pip-wheel-metadata
+
+# go
+vendor
+
+# java / jvm
+.gradle
+.mvn
+target
+
+# c / c++
+build
+cmake-build-*
+CMakeFiles
+CMakeCache.txt
+*.o
+*.a
+*.so
+
+# system junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.nfs*
+
+# logs / temp
+*.log
+logs
+tmp
+temp
+.cache
+
+# media
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.mp3
+*.flac
+*.wav
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+
+# archives
+*.zip
+*.tar
+*.gz
+*.bz2
+*.xz
+*.7z
+*.rar
+
+# secrets / credentials
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.kube
+.aws
+.gnupg
+
+# editor / ide
+.vscode
+.idea
+*.iml
+
+# nix
+.result
+.result-*
+.nix-profile
+.direnv
+
+# misc noise
+.history
+.local/share
+

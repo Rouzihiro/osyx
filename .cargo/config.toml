@@ -1,0 +1,74 @@
+[build]
+jobs = 0
+
+incremental = true
+
+# avoid useless path remapping noise
+rustflags = [
+    "-C", "debuginfo=1",
+]
+
+[target.x86_64-unknown-linux-gnu]
+# use mold if present (falls back automatically if not)
+linker = "clang"
+rustflags = [
+    "-C", "link-arg=-fuse-ld=mold",
+]
+
+# =============================
+# registries / networking
+# =============================
+[net]
+git-fetch-with-cli = true
+retry = 2
+offline = false
+
+# don’t block the world on slow registries
+timeout = 30
+
+# =============================
+# crates.io hygiene
+# =============================
+[registry]
+default = "crates-io"
+
+[registries.crates-io]
+protocol = "sparse"
+
+# =============================
+# cache + disk behavior
+# =============================
+[term]
+verbose = false
+color = "auto"
+
+# =============================
+# profile defaults 
+# =============================
+[profile.dev]
+opt-level = 1
+debug = true
+split-debuginfo = "packed"
+overflow-checks = true
+incremental = true
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
+panic = "abort"
+
+# =============================
+# cargo install behavior
+# =============================
+[install]
+root = "~/.cargo"
+
+# =============================
+# future-proofing
+# =============================
+[unstable]
+# keeps output readable when rustc evolves
+configurable-env = true
+

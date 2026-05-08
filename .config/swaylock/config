@@ -1,0 +1,51 @@
+font=Inter
+font-size=18
+
+# behavior
+show-failed-attempts
+show-keyboard-layout
+indicator-caps-lock
+
+# indicator geometry
+indicator-radius=92
+indicator-thickness=10
+line-uses-ring
+
+# base background (pure black)
+color=000000ff
+
+# inside of ring (glass illusion via alpha only)
+inside-color=00000088
+inside-clear-color=00000088
+inside-ver-color=000000aa
+inside-wrong-color=220000aa
+
+# ring
+ring-color=ffffffff
+ring-clear-color=ffffffff
+ring-ver-color=ffffffff
+ring-wrong-color=ff4444ff
+
+# line
+line-color=ffffffff
+line-clear-color=ffffffff
+line-ver-color=ffffffff
+line-wrong-color=ff4444ff
+
+# text
+text-color=ffffffff
+text-clear-color=ffffffff
+text-ver-color=ffffffff
+text-wrong-color=ffffffff
+
+# key feedback
+key-hl-color=ffffffff
+bs-hl-color=ff4444ff
+
+# layout box
+layout-bg-color=000000aa
+layout-border-color=ffffffff
+layout-text-color=ffffffff
+
+separator-color=00000000
+

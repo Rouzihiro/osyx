@@ -1,0 +1,56 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-json
+        exclude: \.jsonc$
+      - id: check-yaml
+      - id: check-xml
+      - id: check-toml
+      - id: check-merge-conflict
+
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint
+        args: [-ignore, 'shellcheck reported issue']
+
+  - repo: local
+    hooks:
+      - id: json-jq
+        name: validate json (jq)
+        entry: bash -lc 'jq -e . "$@" >/dev/null'
+        language: system
+        files: \.json$
+        exclude: \.jsonc$
+
+      - id: jsonc-node
+        name: validate jsonc (node)
+        entry: node -e "JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'))"
+        language: system
+        files: \.jsonc$
+        pass_filenames: true   # <-- THIS IS THE FIX
+
+      - id: desktop-file-validate
+        name: validate .desktop files
+        entry: desktop-file-validate
+        language: system
+        files: \.desktop$
+
+      - id: zsh-syntax
+        name: zsh syntax check
+        entry: zsh -n
+        language: system
+        files: \.zsh$
+
+exclude: |
+  (?x)(
+    \.git/|
+    \.gnupg/|
+    \.ssh/|
+    .*\.gpg$|
+    \.exported/|
+    \.local/share/
+  )
+
+
