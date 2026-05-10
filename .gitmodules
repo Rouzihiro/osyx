@@ -1,22 +1,6 @@
-[submodule "thyx"]
-    path = thyx
-  	url = https://github.com/rccyx/thyx.git
-
-[submodule "asryx"]
-    path = asryx
-  	url = https://github.com/rccyx/asryx.git
-
-[submodule "powyx"]
-    path = powyx
-  	url = https://github.com/rccyx/powyx.git
-
 [submodule "lookas"]
     path = lookas
   	url = https://github.com/rccyx/lookas.git
-
-[submodule "hyprtryx"]
-    path = hyprtryx
-  	url = https://github.com/rccyx/hyprtryx.git
 
 [submodule "hypr"]
     path = .config/hypr
