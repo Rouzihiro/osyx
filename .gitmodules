@@ -37,7 +37,3 @@
 [submodule "nvim"]
     path = .config/nvim
   	url = https://github.com/rccyx/nvim.git
-
-[submodule "gnome"]
-    path = gnome/gnome
-	url = https://github.com/rccyx/gnome.git
