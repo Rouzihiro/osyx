@@ -74,6 +74,12 @@ First drop:
 
 A terminal audio visualizer based on human auditory perception. Moving beyond raw FFT with Mel-scaling and spring-damper dynamics. You can run `cargo install lookas && lookas` right now.
 
+## State
+
+Some configurations are currently stale or remain in private repositories. Most of the setup is hardcoded to my workflow and interlinked, so I'm releasing components gradually.
+
+For instance, the Hyprland configuration is outdated, I'll be updating it soon with public setups and docs. Neovim is in a submodule as it needs docs, and usage, etc.
+
 ## License
 
 Apache-2.0 © [@rccyx](https://rccyx.com)

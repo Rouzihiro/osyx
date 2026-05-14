@@ -33,7 +33,3 @@
 [submodule ".ssh"]
     path = .ssh
   	url = https://github.com/rccyx/.ssh.git
-
-[submodule "nvim"]
-    path = .config/nvim
-  	url = https://github.com/rccyx/nvim.git
