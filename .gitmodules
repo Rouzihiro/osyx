@@ -2,10 +2,6 @@
     path = lookas
   	url = https://github.com/rccyx/lookas.git
 
-[submodule "hypr"]
-    path = .config/hypr
-  	url = https://github.com/rccyx/hypr.git
-
 [submodule "starship"]
     path = starship
   	url = https://github.com/rccyx/starship.git
