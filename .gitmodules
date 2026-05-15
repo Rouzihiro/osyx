@@ -30,7 +30,6 @@
     path = .ssh
   	url = https://github.com/rccyx/.ssh.git
 
-
 [submodule "powyx"]
     path = powyx
   	url = https://github.com/rccyx/powyx.git
@@ -43,6 +42,10 @@
     path = jarvis
   	url = https://github.com/rccyx/jarvis.git
 
-[submodule "jarvis"]
+[submodule "lookas"]
+    path = jarvis
+  	url = https://github.com/rccyx/jarvis.git
+
+[submodule "asryx"]
     path = jarvis
   	url = https://github.com/rccyx/jarvis.git
