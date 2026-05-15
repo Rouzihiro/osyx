@@ -45,3 +45,7 @@
 [submodule "asryx"]
     path = asryx
   	url = https://github.com/rccyx/asryx.git
+
+[submodule "hyprtryx"]
+    path = hyprtryx
+  	url = https://github.com/rccyx/hyprtryx.git
