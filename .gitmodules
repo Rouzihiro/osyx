@@ -1,7 +1,3 @@
-[submodule "lookas"]
-    path = lookas
-  	url = https://github.com/rccyx/lookas.git
-
 [submodule "starship"]
     path = starship
   	url = https://github.com/rccyx/starship.git
@@ -43,9 +39,9 @@
   	url = https://github.com/rccyx/jarvis.git
 
 [submodule "lookas"]
-    path = jarvis
-  	url = https://github.com/rccyx/jarvis.git
+    path = lookas
+  	url = https://github.com/rccyx/lookas.git
 
 [submodule "asryx"]
-    path = jarvis
-  	url = https://github.com/rccyx/jarvis.git
+    path = asryx
+  	url = https://github.com/rccyx/asryx.git
