@@ -29,3 +29,8 @@
 [submodule ".ssh"]
     path = .ssh
   	url = https://github.com/rccyx/.ssh.git
+
+
+[submodule "jarvis"]
+    path = jarvis
+  	url = https://github.com/rccyx/jarvis.git
