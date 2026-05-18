@@ -4,88 +4,66 @@
   <a href="https://github.com/rccyx/osyx/actions"><img src="https://img.shields.io/github/actions/workflow/status/rccyx/osyx/ci.yml?style=for-the-badge&color=black&labelColor=111111&logo=githubactions&logoColor=white" alt="CI Status"/></a>
   <a href="https://www.debian.org/releases/trixie/"><img src="https://img.shields.io/badge/Base-Debian_Trixie-black?style=for-the-badge&color=black&labelColor=111111&logo=debian&logoColor=white" alt="Base: Debian Trixie"/></a>
   <a href="https://github.com/rccyx/osyx"><img src="https://img.shields.io/github/repo-size/rccyx/osyx?style=for-the-badge&color=black&labelColor=111111&logo=github&logoColor=white" alt="Size"/></a>
-<a href="https://github.com/rccyx/osyx/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache-black?style=for-the-badge&color=black&labelColor=111111&logo=apache&logoColor=white" alt="License"/></a>
-  <br>
+  <a href="https://github.com/rccyx/osyx/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache-black?style=for-the-badge&color=black&labelColor=111111&logo=apache&logoColor=white" alt="License"/></a>
 </p>
-
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/26f28ab8-fcd0-4335-a273-2d9f9f4e509d" />
 
-### Login 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7d95a922-5241-42c4-8fbd-7f6951260805" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/05a48590-e792-425d-8af4-da9072b38b9b" />
+### Demos
 
-### Desktop
+<a href="https://youtu.be/6Hd7L2aBmFk">
+  <img src="https://github.com/user-attachments/assets/dd6360de-0b83-46d4-a005-7fd6a6d57fae" alt="osyx demo">
+</a>
 
-  <a href="https://youtu.be/6Hd7L2aBmFk">
-    <img src="https://github.com/user-attachments/assets/dd6360de-0b83-46d4-a005-7fd6a6d57fae" alt="osyx demo">
-  </a>
+<a href="https://youtu.be/hfwcOR_xJJA">
+  <img src="https://github.com/user-attachments/assets/c92a9eac-03a7-4701-b57d-5b0afece84a2" alt="osyx demo">
+</a>
 
-## Stack
+## TL;DR
 
-These have basically been unchanged for years, updated to latest last year, but took a very, very long time to refine:
+Even though it looks like it's a dots repo, it's more than that.
 
-- **Distro:** Debian.
-- **Display:** Wayland.
-- **Compositor:** Hyprland.
-- **Terminal:** Kitty.
-- **Multiplexer:** Tmux.
-- **Shell:** Zsh + Starship.
-- **Wallpaper:** Work of artists such as [Dominik Mayer](https://x.com/DominikMayerArt), [Susan Wilkinson](https://www.instagram.com/susan.wilkinson.photography/) and more. Backend is `swww`
-- **Notifications:** Mako.
-- **Fonts:** Inter (sans), Iosevka (mono).
-- **Lockscreen:** Hyprlock.
-- **Clipboard:** Wofi for the UI, custom backend.
-- **Login:** Parts of the engines...explained below.
-- **And more...**
+Safe to say it's a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, text-only Debian into the slick, keyboard-driven workspace you saw in the videos.
 
-> [!NOTE]
-> The top bar has been totally annihilated to remove unnecessary clutter. Starship already tells time. Event driven notifications surface critical system vitals (thermals, battery, etc).
+Debian is treated mostly as a stable [substrate](./github/workflows/on-workflow-call-bootstrap.yml) and package source (starts off without even having `sudo`).
 
-### Workflow
+I'm building an operating system interface from scratch, and open sourcing the pieces gradually.
 
-The workflow is split between global keybinds and the CLI, no start menus, dropdowns or clickable icons needed:
+> [!IMPORTANT]
+> Some configurations, scripts, programs, etc, are kept private until they're stable enough to release. The rest is here as a mirror and reference material, copy what you want.
 
-- **Chrome:** Alt + G
-- **Obsidian:** Alt + O
-- **Files (Nautilus):** Alt + F
-- **Audio Transcription:** Alt + W
-- **Power Menu:** Alt + P
-- **Lock:** Alt + L
-- **Themes:** Alt + R
-- **Clipboard Menu:** Ctrl + X
+## Explainers
 
-And so on, till the keys run out.
+If you want to dig through:
 
-But they ran out a long time ago, so the CLI handles the rest:
-
-In the demo you've seen the screen recorder with desktop audio, and a VPN wireguard connection, while [transcribing](#engines) a thought on the go. No GUI needed.
-
-Most tasks are handled through the CLI (which I call Jarvis). This includes everything from simple brightness adjustments, encryption, 2FA codes, network management, etc, to AWS cost analysis, email reminders, syncing packages (RS, TS, Go,Py, APT, etc), git ops & pull request management (reviews, submits, etc), [theming](#engines), even ISO flashing or video editing and audio settings, and much more.
-
-It covers basically anything that doesn't really require a full blown GUI.
-
-But, speaking of
-
-**GUIs:**
-
-Apps behave like native apps, for example: `app sc` launches SoundCloud, with Hypr: `Super + F` for fullscreen, and `Super + Q` to quit. It’s significantly faster than fumbling with browser tabs and saves seconds of friction every time.
-
-All programs launch in their correct workspaces on boot: hit the power button, wait for boot, login with fingerprint, everything spawns up instantly, `Super + 3`, three terminals already open, tmux'ed sessions on the right one, the [visualizer](#lookas) on the bottom right, a misc one on top right.
-
-Workspaces are awlays in the same position, they never change: `Super + 1` That's worskspace one, always notes, `Super + 9` reserved for background music with `app yt`. To move laterally `Alt + Ctrl + Arrows`
+- [Starting](./docs/starting.md) (Want the eye candy? How to go by this)
+- [Workflow](./docs/workflow.md) (If you have to reach for a mouse, you've already lost)
+- [Stack](./docs/stack.md) (If it ain't broke don't fix it)
+- [Philosophy](./docs/philosophy.md) (Overall premise)
 
 ## Engines
 
-My own tooling layer built on top of the stack, handling login, audio, voice, theming, control, and more. 
+These are standalone tools written from scratch, that can be airdropped into any distro. Open sourced gradually:
 
-Open sourcing gradually as standalone tools, airdrop-compatible with any distro.
+### [Asryx](https://github.com/rccyx/asryx) (25/05/26)
 
-First drop:
+The transcription program from the demo (Native C++ Linux ASR toggle).
 
-### [Lookas](https://github.com/rccyx/lookas)
+<p align="center">
+  <a href="https://github.com/rccyx/asryx">
+    <img src="./assets/asryx.gif" alt="Asryx Demo" width="100%">
+  </a>
+</p>
 
-A terminal audio visualizer based on human auditory perception. Moving beyond raw FFT with Mel-scaling and spring-damper dynamics. You can run `cargo install lookas && lookas` right now.
+### [Lookas](https://github.com/rccyx/lookas) (02/04/26)
+
+A terminal audio visualizer built around human auditory perception. Moves beyond raw FFT twitchiness using Mel-scaling and spring-damper dynamics for smooth, natural response.
+
+```sh
+cargo install lookas && lookas
+```
 
 <p align="center">
   <a href="https://github.com/rccyx/lookas">
@@ -93,47 +71,43 @@ A terminal audio visualizer based on human auditory perception. Moving beyond ra
   </a>
 </p>
 
+### Flavors (Coming Soon)
 
-### Flavors Engine: (Coming Soon)
+The demos show the blush and malachite themes. A single palette drives global state. One command propagates color changes across the entire system. `ALT + R` rotates between all themes.
 
-The demo shows the blush theme.
-
-A single palette drives the global state. One command propagates color changes across the system. ALT + R rotates between all themes. I'm working on it now, whenever a flavor is ready for public release, I'll drop it.
+Currently in progress, needs thorough documentation before release so it doesn't brick your machine.
 
 ### Thyx (Coming Soon)
 
-Login.
+A QML based SDDM login screen with video backgrounds, fingerprint auth, and a composable design system. Terraform like state management for installation/uninstallation, CI-tested on Debian, Fedora, and Arch, contains absolutely zero bloat, and fully configurable.
 
-The login screen you just saw.
+Drops as soon as the Flavors are stable (it ships with theming presets that match the desktop 1:1).
 
-SDDM based, ships with presets, while fully configurable, features video backgrounds, fingerprint auth, and a composable design system that matches the main desktop setup. Terraform like state management for installation/uninstallation, CI-tested on Debian, Fedora, and Arch, contains zero bloat.
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/05a48590-e792-425d-8af4-da9072b38b9b" />
 
-Will drop when I'm done open sourcing the falvoring engines and the initial palettes so everything syncs.
+### Powyx (Unreleased)
 
-### Powyx : Power Menu (Unreleased)
+The glassmorphic power menu from the demo.
 
-The glassmorphic power menu you saw in the demo.
+Even though this is a GUI, it solves a real latency problem: if a terminal is not already open, `Alt + P` is faster than spawning a shell (~2.4s load time via `Alt + K`) just to type `sdn`.
 
-### Jarvis : Control (Unreleased)
+<p align="center">
+  <a href="https://github.com/rccyx/powyx">
+    <img src="https://github.com/user-attachments/assets/217304b4-028b-4545-aa78-8e003b5b99c8" alt="Powyx" width="100%">
+  </a>
+</p>
 
-A headless CLI control center made to reduce the GUI footprint to just the browser and the editor. This is the central nervous system of the OS. Much of it is hardcoded to my setup and will be rolled out slowly here. When it gets big enough it gets its own repo. For example:
+### Jarvis (Unreleased)
 
-### Asryx : Voice (Unreleased)
+A headless CLI control center built to reduce the GUI footprint to just the browser and the editor. The central nervous system of the OS. Much of it is hardcoded to my setup and will be rolled out here gradually.
 
-Offline voice-to-text via a single stateful toggle. It supports long-form recording and transcription with zero API latency.
+## And more...
 
-### Hyprtryx : Compositor Build (Unreleased)
+There's more to come.
 
-An idempotent script to build Hyprland from source on Debian Trixie using pinned tags: Hyprland only and nothing else. The build is CI-validated on every push. In fact, everything here is CI validated into oblivion.
-
-### And more...
-
-## State
-
-Some configurations are currently stale or remain in private repositories. Most of the setup is hardcoded to my workflow and interlinked, so I'll be releasing components gradually. 
-
-Meanwhile, yank whatever you need, the Hyprland setup, Zsh, anything.
+> [!TIP]
+> This is a long term thing. So you might follow through.
 
 ## License
 
-Apache-2.0 © [@rccyx](https://rccyx.com)
+Apache-2.0 © @rccyx
