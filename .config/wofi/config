@@ -1,4 +1,3 @@
-# config
 show=drun
 prompt=Run
 matching=fuzzy
@@ -17,7 +16,6 @@ halign=center
 hide_scroll=true
 term=kitty
 
-# quality of life
-parse_search=true
+sparse_search=true
 no_actions=true
 
