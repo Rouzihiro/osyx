@@ -1,0 +1,37 @@
+name: nix
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Parse Nix files
+        shell: bash
+        run: |
+          set -euo pipefail
+          nix --version
+
+          if compgen -G "**/*.nix" > /dev/null; then
+            echo "Parsing all .nix files..."
+            while IFS= read -r -d '' f; do
+              echo "nix-instantiate --parse $f"
+              nix-instantiate --parse "$f" >/dev/null
+            done < <(find . -type f -name '*.nix' -print0)
+          else
+            echo "No .nix files found; skipping."
+          fi

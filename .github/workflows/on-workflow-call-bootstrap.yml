@@ -1,0 +1,68 @@
+name: Smoke
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    name: build (debian-trixie)
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build local test container
+        run: |
+          docker build -t osyx-test-trixie .github/images/trixie
+
+      - name: Run Bootstrap Integration Test
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/tmp/workspace:ro \
+            osyx-test-trixie bash -c "
+              set -euo pipefail
+
+              # 1. Copy repo to smoke user's home (avoids GH runner permission conflicts)
+              sudo rsync -a /tmp/workspace/ /home/smoke/osyx/
+              sudo chown -R smoke:smoke /home/smoke/osyx
+              cd /home/smoke/osyx
+
+              # 2. Allow git in copied repo
+              git config --global --add safe.directory /home/smoke/osyx
+
+              echo '>>> Running Fresh Bootstrap (root stage)...'
+              sudo bash ./install/bootstrap fresh \
+                --user=smoke \
+                --yes \
+                --locale=en_US.UTF-8 \
+                --tz=Europe/London
+
+              echo '>>> Fixing ownership after root stage...'
+              sudo chown -R smoke:smoke /home/smoke/osyx
+              sudo chmod -R u+rwX,go+rX /home/smoke/osyx
+
+              echo '>>> Running Bootstrap Plan...'
+              bash ./install/bootstrap plan \
+                --profile=min \
+                --locale=en_US.UTF-8 \
+                --tz=Europe/London
+
+              echo '>>> Running Bootstrap Apply...'
+              bash ./install/bootstrap apply \
+                --profile=min \
+                --yes \
+                --locale=en_US.UTF-8 \
+                --tz=Europe/London
+
+              echo '>>> Checking Bootstrap Status...'
+              bash ./install/bootstrap status
+
+              echo '>>> Smoke test completed successfully.'
+            "

@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+concurrency:
+  group: Release
+  cancel-in-progress: true
+
+jobs:
+  secrets:
+    if: github.actor == 'rccyx'
+    uses: ./.github/workflows/on-workflow-call-check-secrets.yml
+    secrets: inherit
+
+  lint:
+    needs: secrets
+    uses: ./.github/workflows/on-workflow-call-lint.yml
+
+  submodules:
+    needs: secrets
+    uses: ./.github/workflows/on-workflow-call-submodule-integrity.yml
+    secrets: inherit
+
+  nix:
+    needs: secrets
+    uses: ./.github/workflows/on-workflow-call-nix.yml
+
+  duplicates:
+    needs: secrets
+    uses: ./.github/workflows/on-workflow-call-duplicate-configs.yml
+
+  forbidden:
+    needs: secrets
+    uses: ./.github/workflows/on-workflow-call-forbidden-blobs.yml
+
+  bootstrap:
+    needs: secrets
+    uses: ./.github/workflows/on-workflow-call-bootstrap.yml
+
+  apps:
+    needs: secrets
+    uses: ./.github/workflows/on-workflow-call-apps.yml
