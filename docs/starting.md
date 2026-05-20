@@ -127,7 +127,7 @@ Wallpapers live here:
 flavors/backgrounds/
 ```
 
-Till this is released though, I've created a temporary `malachite/` folder at root here so you can copy Starship, Tmux, Dircolors, Mako, Wofi, Hypr, till the flavors are out.
+Till this is released though, I've created a temporary `tmp-theming/malachite/` folder at root here so you can copy Starship, Tmux, Dircolors, Mako, Wofi, Hypr, till the flavors are out.
 
 ### 3. Zsh
 

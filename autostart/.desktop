@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=/home/rccyx/.local/bin/autostart
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name=Startup Apps
-Comment=Launch my terminals
