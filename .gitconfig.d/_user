@@ -1,0 +1,10 @@
+[user]
+    email = oss@rccyx.com
+    name = rccyx
+    signingkey = 79821E0224D34EC4969FF6A8E5168EE090AE80D0
+
+[gpg]
+    program = gpg
+
+[commit]
+    gpgsign = true
