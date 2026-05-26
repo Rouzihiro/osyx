@@ -42,12 +42,12 @@ Right now Debian is the base because it gives me a predictable substrate. Long t
 
 Someone asked me the other day why I don't upgrade Hyprland 0.49 (May 2025) to the latest versions using the new Lua configs and newer ecosystems around it.
 
-Well, the current setup already works.
+Well, the current setup already works perfectly.
 
-Pulling the latest compositor update should not risk dropping your machine into a TTY before a meeting, during travel, or mid flow state because someone upstream decided to redesign configuration parsing for the fourth time this year.
+Pulling the latest compositor update should not risk dropping your machine into a TTY before a meeting, during travel, or mid flow state because an upstream package had a breaking change.
 
 This project is built specifically to avoid that class of failure.
 
-Debian Testing as the base is a deliberate choice for that. The base system stays predictable while higher level components are pinned, controlled, and upgraded safely.
+For example, Hyprland itself is built through a separate layer with pinned versions, automated builds, and CI/CD validation. Run after the initial [bootstrap](./github/workflows/on-workflow-call-bootstrap.yml).
 
-For example, Hyprland itself is built through a separate layer with pinned versions, automated builds, and CI/CD validation. Run after the initial [bootstrap](./github/workflows/on-workflow-call-bootstrap.yml). This will also be open sourced.
+This will also be open sourced.
