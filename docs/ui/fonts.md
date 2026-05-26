@@ -14,7 +14,7 @@ If you look on the right side of this repository on GitHub, you'll see that I up
 bash install/setup/display/fonts.sh
 ```
 
-This ownloads the pinned release archive, extracts it into `~/.local/share/fonts/osyx`, and refreshes the Fontconfig cache. Keeps a state file at `.state/fonts.version` and exits cleanly if the installed version already matches.
+This downloads the pinned release archive, extracts it into `~/.local/share/fonts/osyx`, and refreshes the Fontconfig cache. Keeps a state file at `.state/fonts.version` and exits cleanly if the installed version already matches.
 
 Bundle layout:
 
@@ -33,7 +33,7 @@ Requires: `curl`, `tar`, `fc-cache`
 
 Since Inter has this weird auto adjusting property.
 
-Browsers can pick weird optical-size variants and render Inter too wide or too loose. So everything is explicitly routed: text below 18pt gets `Inter 18pt`, text 18pt and above gets `Inter 28pt`. Light weights are also forced back to regular so text stays readable on 1080p panels.
+Browsers can pick weird optical size variants and render Inter too wide or too loose. So everything is explicitly routed: text below 18pt gets `Inter 18pt`, text 18pt and above gets `Inter 28pt`. Light weights are also forced back to regular so text stays readable on 1080p panels.
 
 ```xml
 <match target="pattern">

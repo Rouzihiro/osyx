@@ -8,9 +8,7 @@ When it comes to using Linux, there are typically two distinct groups of people.
 
 (Aesthetics = 999/10. Reliability = 1/10)
 
-Usually younger creatives, students, or hobbyists, building insanely beautiful masterpieces, but endlessly replacing components, rebuilding configs every month (actually every week).
-
-The setup looks incredible in screenshots, and demos, but all the engineering in question is often done through Neovim for Neovim itself.
+Usually younger creatives, students, or hobbyists, building insanely beautiful masterpieces, but endlessly replacing components, rebuilding configs every month, actually every week, some even days.
 
 ### Camp Two: [ThePrimeagen's setup](https://youtu.be/bdumjiHabhQ)
 
@@ -44,7 +42,7 @@ Right now Debian is the base because it gives me a predictable substrate. Long t
 
 Someone asked me the other day why I don't upgrade Hyprland 0.49 (May 2025) to the latest versions using the new Lua configs and newer ecosystems around it.
 
-The answer is simple: The current setup already works.
+Well, the current setup already works.
 
 Pulling the latest compositor update should not risk dropping your machine into a TTY before a meeting, during travel, or mid flow state because someone upstream decided to redesign configuration parsing for the fourth time this year.
 

@@ -4,10 +4,7 @@ I barely even use Neovim these days.
 
 Unless I need to edit a file quickly, move fast through a repo, or do something at raw keyboard speed.
 
-Though, this is a modular Neovim setup. Drops in, bootstraps vim-plug on first launch, pulls all plugins, LSPs, and theme, zero manual steps.
-
-> [!IMPORTANT]
-> This is an old Toyota setup, it might not have a touchscreen dashboard, but it’ll start in 0.05 seconds every single time you turn the key. Used only when the ROI of a full blown IDE is negative.
+Though, this is a modular Neovim setup, well think an old Toyota setup,. Drops in, bootstraps vim-plug on first launch, pulls all plugins, LSPs, and theme, zero manual steps.
 
 ## structure
 

@@ -9,7 +9,7 @@
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/26f28ab8-fcd0-4335-a273-2d9f9f4e509d" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9d7e6c58-34aa-4c89-bf49-758bb13a6913" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/39dfa21b-c6df-4be8-9971-d2043d3352b7" />
 
 ### Demos
 
@@ -18,10 +18,8 @@
 </a>
 
 <a href="https://youtu.be/hfwcOR_xJJA">
-  <img src="https://github.com/user-attachments/assets/39dfa21b-c6df-4be8-9971-d2043d3352b7" alt="osyx demo">
+  <img src="https://github.com/user-attachments/assets/9d7e6c58-34aa-4c89-bf49-758bb13a6913" alt="osyx demo">
 </a>
-
-
 
 ## TL;DR
 
@@ -29,7 +27,7 @@ Even though it looks like it's a dots repo, it's more than that.
 
 Safe to say it's a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, text-only Debian into the slick, keyboard-driven workspace you saw in the videos.
 
-Debian is treated mostly as a stable [substrate](./github/workflows/on-workflow-call-bootstrap.yml) and package source (starts off without even having `sudo`).
+Debian is treated mostly as a stable [substrate](/.github/workflows/on-workflow-call-bootstrap.yml) and package source (starts off without even having `sudo`).
 
 I'm building an operating system interface from scratch, and open sourcing the pieces gradually.
 
@@ -49,7 +47,7 @@ If you want to dig through:
 
 These are standalone tools written from scratch, that can be airdropped into any distro. Open sourced gradually:
 
-### [Asryx](https://github.com/rccyx/asryx) (25/05/26)
+### [Asryx](https://github.com/rccyx/asryx) (released: 25/05/26)
 
 The transcription program from the demo (Native C++ Linux ASR toggle).
 
@@ -59,7 +57,7 @@ The transcription program from the demo (Native C++ Linux ASR toggle).
   </a>
 </p>
 
-### [Lookas](https://github.com/rccyx/lookas) (02/04/26)
+### [Lookas](https://github.com/rccyx/lookas) (released: 02/04/26)
 
 A terminal audio visualizer built around human auditory perception. Moves beyond raw FFT twitchiness using Mel-scaling and spring-damper dynamics for smooth, natural response.
 
@@ -73,13 +71,13 @@ cargo install lookas && lookas
   </a>
 </p>
 
-### Flavors (Coming Soon)
+### Flavors (Coming soon)
 
 The demos show the blush and malachite themes. A single palette drives global state. One command propagates color changes across the entire system. `ALT + R` rotates between all themes.
 
 Currently in progress, needs thorough documentation before release so it doesn't brick your machine.
 
-### Thyx (Coming Soon)
+### Thyx (Next)
 
 A QML based SDDM login screen with video backgrounds, fingerprint auth, and a composable design system. Terraform like state management for installation/uninstallation, CI-tested on Debian, Fedora, and Arch, contains absolutely zero bloat, and fully configurable.
 
@@ -98,7 +96,6 @@ Even though this is a GUI, it solves a real latency problem: if a terminal is no
     <img src="https://github.com/user-attachments/assets/0c99e97e-e639-4a30-8afd-b373b759661a" alt="Powyx" width="100%">
   </a>
 </p>
-
 
 ### Jarvis (Unreleased)
 

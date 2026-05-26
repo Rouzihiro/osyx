@@ -32,7 +32,7 @@ shell export
 terminal listings
 ```
 
-The file is right here `~/.dircolors`.
+The file is `~/.dircolors`.
 
 The shell then loads the generated theme through [zsh](./zsh.md):
 

@@ -2,15 +2,11 @@
 
 So you're probably wondering:
 
-```text
-Can I use this?
-What do I copy?
-How do I make my setup look like that?
-```
+- Can I use this? Or, how do I make my setup look like that?
 
-Yes, you can use pieces of it today.
+You can use pieces of it today.
 
-The full public one-command install is not available yet, so the right way to approach this repo is component extraction. Take the parts that are portable, understand the parts that are personal, and treat generated files as output.
+BUT: The full public one command install is not available yet, so the way to approach this repo is component extraction.
 
 ## What you're looking at
 
@@ -44,16 +40,14 @@ underscore files  personal layer
 generated files   output layer
 ```
 
-Normal files are meant to be copied or studied directly.
+Normal files are meant to be copied directly.
 
 Underscore files are real workflow files, but they may contain my monitor names, my weird keyboard layout, app paths, startup layout, local binaries, generated paths, hardware assumptions, or personal keybinds, etc.
 
 Example from Hyprland:
 
 ```text
-keybinds.conf      portable
-startup.conf       portable
-variables.conf     portable
+hyprlock.conf     totally portable
 
 _keybinds.conf     personal
 _startup.conf      personal
@@ -62,15 +56,13 @@ _clipboard.conf    generated / machine-local
 ```
 
 > [!IMPORTANT]
-> Generated files are written by scripts. Edit the source that generates them.
+> Generated files are written by scripts. Edit the source that generates them (if public).
 
 ## What to copy first
 
 ### 1. Fonts
 
 [fonts.md](./ui/fonts.md)
-
-Fonts come first because the screenshots depend on exact font routing.
 
 The font setup installs Inter, Iosevka Fixed SS18, and Meslo, then Fontconfig routes them correctly so browsers, terminals, notifications, launchers, and glyphs render the same way.
 
@@ -80,27 +72,16 @@ The font setup installs Inter, Iosevka Fixed SS18, and Meslo, then Fontconfig ro
 
 Flavors is the palette engine.
 
-One palette changes Starship, Tmux, Hyprland borders, Mako, Wofi, Dircolors, Neovim, Git output, and the wallpaper.
-
 Currently WIP, but will (very soon) be released.
+
+One palette changes Starship, Tmux, Hyprland borders, Mako, Wofi, Dircolors, Neovim, Git output, and the wallpaper.
 
 And the way it works is this:
 
 ```text
-flavors/
-├── backgrounds/
-├── base/
-├── palettes/
-├── generate.py
-└── themes.zsh
-```
-
-The model:
-
-```text
 palette TOML
   ↓
-generate.py
+generator
   ↓
 Jinja templates
   ↓
@@ -127,7 +108,8 @@ Wallpapers live here:
 flavors/backgrounds/
 ```
 
-Till this is released though, I've created a temporary `tmp-theming/malachite/` folder at root here so you can copy Starship, Tmux, Dircolors, Mako, Wofi, Hypr, till the flavors are out.
+> [!TIP]
+> Till this is released, I've created a temporary `tmp-theming/` folder at root here so you can copy Starship, Tmux, Dircolors, Mako, Wofi, Hypr, till the flavors are out.
 
 ### 3. Zsh
 

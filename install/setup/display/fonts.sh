@@ -5,7 +5,7 @@
 set -Eeuo pipefail
 
 # --- CONSTS ---
-FONTS_REPO="rccyx/osyx-testing"
+FONTS_REPO="rccyx/osyx"
 FONTS_VERSION="fonts-v1.0.0"
 
 FONT_DST="${HOME}/.local/share/fonts/osyx"
