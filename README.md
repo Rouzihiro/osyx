@@ -9,7 +9,7 @@
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/26f28ab8-fcd0-4335-a273-2d9f9f4e509d" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7d95a922-5241-42c4-8fbd-7f6951260805" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9d7e6c58-34aa-4c89-bf49-758bb13a6913" />
 
 ### Demos
 
@@ -18,8 +18,10 @@
 </a>
 
 <a href="https://youtu.be/hfwcOR_xJJA">
-  <img src="https://github.com/user-attachments/assets/c92a9eac-03a7-4701-b57d-5b0afece84a2" alt="osyx demo">
+  <img src="https://github.com/user-attachments/assets/39dfa21b-c6df-4be8-9971-d2043d3352b7" alt="osyx demo">
 </a>
+
+
 
 ## TL;DR
 
@@ -93,9 +95,10 @@ Even though this is a GUI, it solves a real latency problem: if a terminal is no
 
 <p align="center">
   <a href="https://github.com/rccyx/powyx">
-    <img src="https://github.com/user-attachments/assets/217304b4-028b-4545-aa78-8e003b5b99c8" alt="Powyx" width="100%">
+    <img src="https://github.com/user-attachments/assets/0c99e97e-e639-4a30-8afd-b373b759661a" alt="Powyx" width="100%">
   </a>
 </p>
+
 
 ### Jarvis (Unreleased)
 
