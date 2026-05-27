@@ -1,8 +1,7 @@
-[submodule ".gnupg"]
-    path = .gnupg
-  	url = https://github.com/rccyx/.gnupg.git
+[submodule "thyx"]
+    path = thyx
+  	url = https://github.com/rccyx/thyx.git
 
-[submodule ".ssh"]
-    path = .ssh
-  	url = https://github.com/rccyx/.ssh.git
-
+[submodule "jarvis"]
+    path = jarvis
+  	url = https://github.com/rccyx/jarvis.git
