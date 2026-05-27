@@ -2,6 +2,15 @@ eval "$(dircolors "$HOME/.dircolors" 2>/dev/null || true)"
 
 _OSYX_RELOAD_FILE="$HOME/.cache/zsh-reload-trigger"
 
+# ─── constants ────────────────────────────────────────────────────────────────
+_OSYX_PALETTES_DIR="$HOME/flavors/palettes"
+_OSYX_BACKGROUNDS_DIR="$HOME/flavors/backgrounds"
+_OSYX_GENERATE_SCRIPT="$HOME/flavors/generate.py"
+_OSYX_THYX_MAP="$HOME/flavors/thyx-map.conf"
+_OSYX_STATE_FILE="$HOME/.cache/theme.current"
+_OSYX_THYX_META="/usr/share/sddm/themes/thyx/metadata.desktop"
+_OSYX_THYX_DIR="/usr/share/sddm/themes/thyx"
+
 # fires immediately even when idle at the prompt
 TRAPUSR1() {
   [[ -o zle ]] && zle -I
@@ -43,40 +52,30 @@ _osyx_reload_all() {
 
 # ─── theme switcher ───────────────────────────────────────────────────────────
 themes() {
-  local root="$HOME"
-  local state_file="$root/.cache/theme.current"
-  local thyx_dir="/usr/share/sddm/themes/thyx"
-  local thyx_meta="$thyx_dir/metadata.desktop"
-  local palettes_dir="$root/flavors/palettes"
-
+  # build theme list dynamically from palettes dir
   local -a theme_list=()
-  if [[ -d "$palettes_dir" ]]; then
-    for f in "$palettes_dir"/*.toml(N); do
+  if [[ -d "$_OSYX_PALETTES_DIR" ]]; then
+    for f in "$_OSYX_PALETTES_DIR"/*.toml(N); do
       local basename="${f##*/}"
       theme_list+=("${basename%%.toml}")
     done
   fi
 
-  # fallback list if no palettes dir exists
   if (( ${#theme_list[@]} == 0 )); then
-    theme_list=(
-      umber nimbus cobalt gilded canopy indigo malachite garnet blush sakura flush ash
-    )
+    echo "no palettes found in $_OSYX_PALETTES_DIR" >&2
+    return 1
   fi
 
   _themes_detect_current() {
-    local cur=""
-    if [[ -f "$state_file" ]]; then
-      cur="$(<"$state_file")"
-      [[ -n "$cur" ]] && { print -r -- "$cur"; return 0; }
-    fi
+    [[ -f "$_OSYX_STATE_FILE" ]] || return 1
+    local cur="$(<"$_OSYX_STATE_FILE")"
+    [[ -n "$cur" ]] && { print -r -- "$cur"; return 0; }
     return 1
   }
 
   _themes_next_in_list() {
     local cur="$1"
-    local i=1 n=${#theme_list[@]}
-    local found=0
+    local i n=${#theme_list[@]} found=0
 
     for (( i = 1; i <= n; i++ )); do
       if [[ "${theme_list[i]}" == "$cur" ]]; then
@@ -85,14 +84,13 @@ themes() {
       fi
     done
 
-    # unknown theme — just start from the top
+    # unknown theme — start from the top
     if (( ! found )); then
       print -r -- "${theme_list[1]}"
       return 0
     fi
 
-    local next=$(( i % n + 1 ))
-    print -r -- "${theme_list[next]}"
+    print -r -- "${theme_list[$(( i % n + 1 ))]}"
   }
 
   local choice=""
@@ -112,16 +110,14 @@ themes() {
   fi
 
   (
-    local generate_script="$root/flavors/generate.py"
-    if [[ -f "$generate_script" ]]; then
-      python3 "$generate_script" "$choice" >/dev/null 2>&1
-    fi
+    [[ -f "$_OSYX_GENERATE_SCRIPT" ]] && \
+      python3 "$_OSYX_GENERATE_SCRIPT" "$choice" >/dev/null 2>&1
 
-    mkdir -p "${state_file:h}" 2>/dev/null || mkdir -p "$root/.cache"
-    print -r -- "$choice" >| "$state_file" 2>/dev/null || true
+    mkdir -p "${_OSYX_STATE_FILE:h}" 2>/dev/null
+    print -r -- "$choice" >| "$_OSYX_STATE_FILE" 2>/dev/null || true
 
     if command -v tmux >/dev/null 2>&1 && tmux list-sessions >/dev/null 2>&1; then
-      tmux source-file "$root/.tmux.conf" >/dev/null 2>&1 || true
+      tmux source-file "$HOME/.tmux.conf" >/dev/null 2>&1 || true
     fi
 
     if command -v hyprctl >/dev/null 2>&1; then
@@ -135,7 +131,7 @@ themes() {
       (mako >/dev/null 2>&1 & disown) >/dev/null 2>&1 || true
     fi
 
-    # nvim 0.10+ exposes a socket per instance — send OsyxFlip to bust the cached theme
+    # nvim 0.10+ — bust cached theme via socket
     if command -v nvim >/dev/null 2>&1; then
       local sock
       for sock in \
@@ -146,53 +142,43 @@ themes() {
       done
     fi
 
+    # wallpaper — try jpg, png, webp in order
     local wallpaper_file=""
     for ext in jpg png webp; do
-      if [[ -f "$root/flavors/backgrounds/$choice.$ext" ]]; then
-        wallpaper_file="$root/flavors/backgrounds/$choice.$ext"
+      if [[ -f "$_OSYX_BACKGROUNDS_DIR/$choice.$ext" ]]; then
+        wallpaper_file="$_OSYX_BACKGROUNDS_DIR/$choice.$ext"
         break
       fi
     done
 
-    if [[ -n "$wallpaper_file" ]] && command -v wallpaper >/dev/null 2>&1; then
-      wallpaper set "$wallpaper_file" >/dev/null 2>&1 || true
-    elif [[ -n "$wallpaper_file" ]] && command -v waypaper >/dev/null 2>&1; then
-      waypaper --wallpaper "$wallpaper_file" >/dev/null 2>&1 || true
+    if [[ -n "$wallpaper_file" ]]; then
+      if command -v wallpaper >/dev/null 2>&1; then
+        wallpaper set "$wallpaper_file" >/dev/null 2>&1 || true
+      elif command -v waypaper >/dev/null 2>&1; then
+        waypaper --wallpaper "$wallpaper_file" >/dev/null 2>&1 || true
+      fi
     fi
 
-    # map theme names to thyx presets (not always 1:1)
-    local thyx_preset=""
-    case "$choice" in
-      umber)      thyx_preset="umber"     ;;
-      catppuccin) thyx_preset="sakura"    ;;
-      canopy)     thyx_preset="malachite" ;;
-      malachite)  thyx_preset="malachite" ;;
-      indigo)     thyx_preset="cobalt"    ;;
-      cobalt)     thyx_preset="cobalt"    ;;
-      nimbus)     thyx_preset="cobalt"    ;;
-      garnet)     thyx_preset="rose"      ;;
-      flush)      thyx_preset="rose"      ;;
-      blush)      thyx_preset="blush"     ;;
-      sakura)     thyx_preset="sakura"    ;;
-      gilded)     thyx_preset="gilded"    ;;
-      ash)        thyx_preset="ash"       ;;
-    esac
+    # look up thyx preset, fall back to ash if not mapped
+    if [[ -d "$_OSYX_THYX_DIR" && -f "$_OSYX_THYX_META" ]]; then
+      local thyx_preset=""
+      if [[ -f "$_OSYX_THYX_MAP" ]]; then
+        thyx_preset=$(grep -E "^${choice}=" "$_OSYX_THYX_MAP" 2>/dev/null | cut -d= -f2)
+      fi
+      thyx_preset="${thyx_preset:-ash}"
 
-    if [[ -n "$thyx_preset" && -d "$thyx_dir" && -f "$thyx_meta" ]]; then
       local line="ConfigFile=themes/$thyx_preset.conf"
-      if [[ -w "$thyx_meta" ]]; then
-        if grep -q '^ConfigFile=' "$thyx_meta" 2>/dev/null; then
-          sed -i "s|^ConfigFile=.*$|$line|" "$thyx_meta"
+      if [[ -w "$_OSYX_THYX_META" ]]; then
+        if grep -q '^ConfigFile=' "$_OSYX_THYX_META" 2>/dev/null; then
+          sed -i "s|^ConfigFile=.*$|$line|" "$_OSYX_THYX_META"
         else
-          printf '\n%s\n' "$line" >> "$thyx_meta"
+          printf '\n%s\n' "$line" >> "$_OSYX_THYX_META"
         fi
-      elif command -v sudo >/dev/null 2>&1; then
-        if sudo test -w "$thyx_meta" 2>/dev/null; then
-          if sudo grep -q '^ConfigFile=' "$thyx_meta" 2>/dev/null; then
-            sudo sed -i "s|^ConfigFile=.*$|$line|" "$thyx_meta"
-          else
-            printf '%s\n' "$line" | sudo tee -a "$thyx_meta" >/dev/null
-          fi
+      elif command -v sudo >/dev/null 2>&1 && sudo test -w "$_OSYX_THYX_META" 2>/dev/null; then
+        if sudo grep -q '^ConfigFile=' "$_OSYX_THYX_META" 2>/dev/null; then
+          sudo sed -i "s|^ConfigFile=.*$|$line|" "$_OSYX_THYX_META"
+        else
+          printf '%s\n' "$line" | sudo tee -a "$_OSYX_THYX_META" >/dev/null
         fi
       fi
     fi
