@@ -153,11 +153,13 @@ _osyx_apply_theme() {
 
   _osyx_generate_theme_files "$theme"
   _osyx_write_theme_state "$theme"
-  _osyx_reload_tmux
-  _osyx_reload_hyprland
-  _osyx_reload_mako
-  _osyx_reload_nvim
-  _osyx_apply_wallpaper "$theme"
-  _osyx_update_thyx "$theme"
-  _osyx_reload_all >/dev/null 2>&1
+
+  _osyx_reload_hyprland &!
+  _osyx_reload_mako &!
+  _osyx_apply_wallpaper "$theme" &!
+
+  _osyx_reload_tmux &!
+  _osyx_reload_nvim &!
+  _osyx_reload_all >/dev/null 2>&1 &!
+  _osyx_update_thyx "$theme" &!
 }

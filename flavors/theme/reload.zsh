@@ -26,11 +26,4 @@ _osyx_register_autoreload() {
 _osyx_reload_all() {
   mkdir -p "${_OSYX_RELOAD_FILE:h}"
   print -r -- "$(date +%s%N)" >| "$_OSYX_RELOAD_FILE"
-
-  local pid tty
-  while read -r pid; do
-    tty=$(ps -p "$pid" -o tty= 2>/dev/null | tr -d ' ')
-    [[ -z "$tty" || "$tty" == "?" ]] && continue
-    kill -USR1 "$pid" 2>/dev/null || true
-  done < <(pgrep -u "$USER" zsh 2>/dev/null)
 }

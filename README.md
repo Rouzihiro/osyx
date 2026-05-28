@@ -23,9 +23,9 @@
 
 ## TL;DR
 
-Even though it looks like it's a dots repo, it's more than that.
+Even though it looks like a dots repo, it's more than that.
 
-Safe to say it's a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, text-only Debian into the slick, keyboard-driven workspace you saw in the videos.
+It's a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, bare metal Debian into the slick, keyboard driven workspace you saw in the videos.
 
 Debian is treated mostly as a stable [substrate](/.github/workflows/on-workflow-call-bootstrap.yml) and package source (starts off without even having `sudo`).
 
@@ -49,7 +49,9 @@ These are standalone tools written from scratch, that can be airdropped into any
 
 ### [Asryx](https://github.com/rccyx/asryx) (released: 25/05/26)
 
-The transcription program from the demo (Native C++ Linux ASR toggle).
+The transcription program from the demo.
+
+Native Linux ASR binary. Written in C++ and embedded via whiser.cpp's C API, daemonless, offline, no bloat, no GUI, no config overhead.
 
 <p align="center">
   <a href="https://github.com/rccyx/asryx">
@@ -59,7 +61,7 @@ The transcription program from the demo (Native C++ Linux ASR toggle).
 
 ### [Lookas](https://github.com/rccyx/lookas) (released: 02/04/26)
 
-A terminal audio visualizer built around human auditory perception. Moves beyond raw FFT twitchiness using Mel-scaling and spring-damper dynamics for smooth, natural response.
+A terminal audio visualizer built around human auditory perception. Moves beyond raw FFT twitchiness using Mel-scaling and spring damper physics.
 
 ```sh
 cargo install lookas && lookas
