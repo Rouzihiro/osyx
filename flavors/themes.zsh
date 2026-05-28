@@ -1,8 +1,6 @@
-eval "$(dircolors "$HOME/.dircolors" 2>/dev/null || true)"
-
-_OSYX_RELOAD_FILE="$HOME/.cache/zsh-reload-trigger"
-
 # ─── constants ────────────────────────────────────────────────────────────────
+_OSYX_RELOAD_FILE="$HOME/.cache/zsh-reload-trigger"
+_OSYX_LOG_FILE="$HOME/.cache/osyx.log"
 _OSYX_PALETTES_DIR="$HOME/flavors/palettes"
 _OSYX_BACKGROUNDS_DIR="$HOME/flavors/backgrounds"
 _OSYX_GENERATE_SCRIPT="$HOME/flavors/generate.py"
@@ -11,10 +9,19 @@ _OSYX_STATE_FILE="$HOME/.cache/theme.current"
 _OSYX_THYX_META="/usr/share/sddm/themes/thyx/metadata.desktop"
 _OSYX_THYX_DIR="/usr/share/sddm/themes/thyx"
 
+_osyx_log() {
+  mkdir -p "${_OSYX_LOG_FILE:h}"
+  print -r -- "[$(date '+%H:%M:%S')] $*" >> "$_OSYX_LOG_FILE"
+}
+
+eval "$(dircolors "$HOME/.dircolors" 2>/dev/null)" \
+  || _osyx_log "dircolors not available, skipping"
+
 # fires immediately even when idle at the prompt
 TRAPUSR1() {
   [[ -o zle ]] && zle -I
-  eval "$(dircolors "$HOME/.dircolors" 2>/dev/null || true)"
+  eval "$(dircolors "$HOME/.dircolors" 2>/dev/null)" \
+    || _osyx_log "dircolors not available in TRAPUSR1, skipping"
   clear
   [[ -o zle ]] && zle reset-prompt 2>/dev/null || true
 }
@@ -26,7 +33,8 @@ _osyx_autoreload() {
   stamp=$(<"$_OSYX_RELOAD_FILE")
   [[ "$stamp" == "${_OSYX_LAST_RELOAD:-}" ]] && return 0
   _OSYX_LAST_RELOAD="$stamp"
-  eval "$(dircolors "$HOME/.dircolors" 2>/dev/null || true)"
+  eval "$(dircolors "$HOME/.dircolors" 2>/dev/null)" \
+    || _osyx_log "dircolors not available in autoreload, skipping"
   clear
   [[ -o zle ]] && zle reset-prompt 2>/dev/null || true
 }
@@ -110,25 +118,35 @@ themes() {
   fi
 
   (
-    [[ -f "$_OSYX_GENERATE_SCRIPT" ]] && \
-      python3 "$_OSYX_GENERATE_SCRIPT" "$choice" >/dev/null 2>&1
+    if [[ -f "$_OSYX_GENERATE_SCRIPT" ]]; then
+      python3 "$_OSYX_GENERATE_SCRIPT" "$choice" >/dev/null 2>&1 \
+        || _osyx_log "generate.py failed for $choice"
+    else
+      _osyx_log "generate.py not found, skipping"
+    fi
 
     mkdir -p "${_OSYX_STATE_FILE:h}" 2>/dev/null
     print -r -- "$choice" >| "$_OSYX_STATE_FILE" 2>/dev/null || true
 
     if command -v tmux >/dev/null 2>&1 && tmux list-sessions >/dev/null 2>&1; then
-      tmux source-file "$HOME/.tmux.conf" >/dev/null 2>&1 || true
+      tmux source-file "$HOME/.tmux.conf" >/dev/null 2>&1 \
+        || _osyx_log "tmux source failed"
+    else
+      _osyx_log "tmux not running, skipping"
     fi
 
     if command -v hyprctl >/dev/null 2>&1; then
-      hyprctl reload >/dev/null 2>&1 || true
+      hyprctl reload >/dev/null 2>&1 || _osyx_log "hyprctl reload failed"
+    else
+      _osyx_log "hyprctl not found, skipping"
     fi
 
     if command -v makoctl >/dev/null 2>&1; then
-      makoctl reload >/dev/null 2>&1 || true
+      makoctl reload >/dev/null 2>&1 || _osyx_log "makoctl reload failed"
     else
       pkill -x mako >/dev/null 2>&1 || true
-      (mako >/dev/null 2>&1 & disown) >/dev/null 2>&1 || true
+      (mako >/dev/null 2>&1 & disown) >/dev/null 2>&1 \
+        || _osyx_log "mako not found, skipping"
     fi
 
     # nvim 0.10+ — bust cached theme via socket
@@ -138,8 +156,11 @@ themes() {
         /run/user/$(id -u)/nvim.*.0 \
         /tmp/nvim.${USER}/**/nvim.*.0(N); do
         [[ -S "$sock" ]] || continue
-        nvim --server "$sock" --remote-send '<Cmd>OsyxFlip<CR>' >/dev/null 2>&1 || true
+        nvim --server "$sock" --remote-send '<Cmd>OsyxFlip<CR>' >/dev/null 2>&1 \
+          || _osyx_log "nvim socket $sock unreachable, skipping"
       done
+    else
+      _osyx_log "nvim not found, skipping"
     fi
 
     # wallpaper — try jpg, png, webp in order
@@ -153,17 +174,25 @@ themes() {
 
     if [[ -n "$wallpaper_file" ]]; then
       if command -v wallpaper >/dev/null 2>&1; then
-        wallpaper set "$wallpaper_file" >/dev/null 2>&1 || true
+        wallpaper set "$wallpaper_file" >/dev/null 2>&1 \
+          || _osyx_log "wallpaper set failed for $wallpaper_file"
       elif command -v waypaper >/dev/null 2>&1; then
-        waypaper --wallpaper "$wallpaper_file" >/dev/null 2>&1 || true
+        waypaper --wallpaper "$wallpaper_file" >/dev/null 2>&1 \
+          || _osyx_log "waypaper failed for $wallpaper_file"
+      else
+        _osyx_log "no wallpaper tool found, skipping"
       fi
+    else
+      _osyx_log "no wallpaper found for $choice, skipping"
     fi
 
-    # look up thyx preset, fall back to ash if not mapped
+    # look up thyx preset, fall back to ash if not mapped — skip entirely if thyx isn't installed
     if [[ -d "$_OSYX_THYX_DIR" && -f "$_OSYX_THYX_META" ]]; then
       local thyx_preset=""
       if [[ -f "$_OSYX_THYX_MAP" ]]; then
         thyx_preset=$(grep -E "^${choice}=" "$_OSYX_THYX_MAP" 2>/dev/null | cut -d= -f2)
+      else
+        _osyx_log "thyx-map.conf not found, falling back to ash"
       fi
       thyx_preset="${thyx_preset:-ash}"
 
@@ -180,7 +209,11 @@ themes() {
         else
           printf '%s\n' "$line" | sudo tee -a "$_OSYX_THYX_META" >/dev/null
         fi
+      else
+        _osyx_log "thyx meta not writable, skipping sddm update"
       fi
+    else
+      _osyx_log "thyx not installed, skipping sddm preset update"
     fi
 
     _osyx_reload_all >/dev/null 2>&1
