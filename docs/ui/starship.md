@@ -27,8 +27,6 @@ flavors/generate.py
 .config/starship.toml
 ```
 
-## Prompt shape
-
 The prompt is one compact status line plus the command character.
 
 ```text

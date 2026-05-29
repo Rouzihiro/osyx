@@ -14,6 +14,6 @@ These have basically been unchanged for years, updated to latest when it makes s
 - **Fonts:** Inter (sans), Iosevka (mono), Meslo (NerdFonts fallback).
 - **Lockscreen:** Hyprlock `v0.9.5`.
 - **Clipboard:** Wofi `v1.4.1` (UI), custom backend.
-- **Login:** Thyx
-- **Power:** Powyx
+- **Login:** Thyx (custom theme)
+- **Power:** Powyx (custom menu)
 - **And more private utilities...**

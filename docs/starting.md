@@ -1,12 +1,10 @@
 # Starting
 
-So you're probably wondering:
-
-- Can I use this? Or, how do I make my setup look like that?
+So you're probably wondering can I use this? Or, how do I make my setup look like that?
 
 You can use pieces of it today.
 
-BUT: The full public one command install is not available yet, so the way to approach this repo is component extraction.
+BUT: The full public one command install is not available yet, so the way to approach this is component extraction.
 
 ## What you're looking at
 
@@ -27,6 +25,8 @@ What makes it look the way it does in the demos is entirely these programs worki
 
 > [!NOTE]
 > A top bar is basically redundant here. Starship already tells time. Event driven notifications surface critical system vitals (thermals, battery, etc).
+
+You may have seen me switch themes instantly, to get that, check the [flavors](./ui/flavors.md) docs.
 
 ## The rule
 
@@ -56,7 +56,7 @@ _clipboard.conf    generated / machine-local
 ```
 
 > [!IMPORTANT]
-> Generated files are written by scripts. Edit the source that generates them (if public).
+> Generated files are written by [scripts](./ui/flavors.md). Edit the source that generates them.
 
 ## What to copy first
 
@@ -70,9 +70,7 @@ The font setup installs Inter, Iosevka Fixed SS18, and Meslo, then Fontconfig ro
 
 [flavors.md](./ui/flavors.md)
 
-Flavors is the palette engine.
-
-Currently WIP, but will (very soon) be released.
+Flavors is the palette theme switcher.
 
 One palette changes Starship, Tmux, Hyprland borders, Mako, Wofi, Dircolors, Neovim, Git output, and the wallpaper.
 
@@ -89,27 +87,6 @@ generated config files
   ↓
 live reload
 ```
-
-Palettes live here:
-
-```text
-flavors/palettes/
-```
-
-Templates live here:
-
-```text
-flavors/base/
-```
-
-Wallpapers live here:
-
-```text
-flavors/backgrounds/
-```
-
-> [!TIP]
-> Till this is released, I've created a temporary `tmp-theming/` folder at root here so you can copy Starship, Tmux, Dircolors, Mako, Wofi, Hypr, till the flavors are out.
 
 ### 3. Zsh
 

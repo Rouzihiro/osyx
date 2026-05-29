@@ -23,13 +23,11 @@
 
 ## TL;DR
 
-Even though it looks like a dots repo, it's more than that.
+I'm building an operating system interface from scratch, and open sourcing the pieces gradually.
 
-It's a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, bare metal Debian into the slick, keyboard driven workspace you saw in the videos.
+Even though it looks like a dots repo, it's really not just dots. Since dots imply simply a dump of configs. This project though, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian into the slick, keyboard driven workspace you saw in the demos.
 
 Debian is treated mostly as a stable [substrate](/.github/workflows/on-workflow-call-bootstrap.yml) and package source (starts off without even having `sudo`).
-
-I'm building an operating system interface from scratch, and open sourcing the pieces gradually.
 
 > [!IMPORTANT]
 > Some configurations, scripts, programs, etc, are kept private until they're stable enough to release. The rest is here as a mirror and reference material, copy what you want.
@@ -39,9 +37,9 @@ I'm building an operating system interface from scratch, and open sourcing the p
 If you want to dig through:
 
 - [Starting](./docs/starting.md) (Want the eye candy? How to go by this)
-- [Workflow](./docs/workflow.md) (If you have to reach for a mouse, you've already lost)
+- [Workflow](./docs/workflow.md) (If you reach for a mouse, you've already lost)
 - [Stack](./docs/stack.md) (If it ain't broke don't fix it)
-- [Philosophy](./docs/philosophy.md) (Overall premise)
+- [Philosophy](./docs/philosophy.md) (Overall premise and why I'm doing this)
 
 ## Engines
 
@@ -73,17 +71,9 @@ cargo install lookas && lookas
   </a>
 </p>
 
-### Flavors (Coming soon)
-
-The demos show the blush and malachite themes. A single palette drives global state. One command propagates color changes across the entire system. `ALT + R` rotates between all themes.
-
-Currently in progress, needs thorough documentation before release so it doesn't brick your machine.
-
 ### Thyx (Next)
 
-A QML based SDDM login screen with video backgrounds, fingerprint auth, and a composable design system. Terraform like state management for installation/uninstallation, CI-tested on Debian, Fedora, and Arch, contains absolutely zero bloat, and fully configurable.
-
-Drops as soon as the Flavors are stable (it ships with theming presets that match the desktop 1:1).
+A QML based SDDM login screen with video backgrounds, fingerprint auth, and a composable design system. Terraform like state management for installation/uninstallation. Contains absolutely zero bloat, and fully configurable.
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/05a48590-e792-425d-8af4-da9072b38b9b" />
 

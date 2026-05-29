@@ -2,11 +2,9 @@
 
 Wofi is the launcher layer, used as a small keyboard-first menu surface for launching apps and picking generated lists.
 
-App launching is rare in my workflow. Most Wofi usage is clipboard management.
+App launching is rare in my workflow. Most Wofi usage is clipboard management where it acts as a fast selection surface.
 
-It acts as a fast selection surface.
-
-## Files
+**Files:**
 
 ```text
 .config/wofi/config

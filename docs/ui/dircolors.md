@@ -14,7 +14,7 @@ read the `LS_COLORS` environment variable to decide how directories, executables
 
 Without `dircolors`, terminal listings become inconsistent, low-contrast, or dependent on distro defaults.
 
-I use `lsd` though, since it shows icons. Aliased as `l` (from [zsh](./zsh.md)).
+I use `lsd`, since it shows icons. Aliased as `l` (from [zsh](./zsh.md)).
 
 The theme engine generates a dircolors file from the active palette.
 
@@ -54,7 +54,7 @@ eval "$(dircolors ~/.dircolors)"
 
 ## Relationship with `lsd`
 
-`lsd` already has its own theme layer, but `LS_COLORS` still matters because:
+`lsd` already has its own theme layer, but `LS_COLORS` is important because:
 
 - many tools still read it directly
 - fallback tools use it

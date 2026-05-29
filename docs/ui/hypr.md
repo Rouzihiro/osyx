@@ -8,4 +8,4 @@ Each one of these files has self explaining docs.
 `hyprland.conf` is only the entry point. It owns load order.
 
 > [!IMPORTANT]
-> Load order matters though.
+> Load order matters.

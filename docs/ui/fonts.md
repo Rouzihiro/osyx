@@ -8,7 +8,7 @@
 
 ## Installation
 
-If you look on the right side of this repository on GitHub, you'll see that I uploaded the fonts as a release pacakge, you can install:
+If you look on the right side of this repository on GitHub, you'll see that I've uploaded the fonts as a release package you can install:
 
 ```sh
 bash install/setup/display/fonts.sh
@@ -26,6 +26,9 @@ Bundle layout:
 ```
 
 Requires: `curl`, `tar`, `fc-cache`
+
+> [!TIP]
+> If you don't like the fonts, simply remove `~/.local/share/fonts/osyx`, and use your old `.config/fontconfig/fonts.conf` file.
 
 ## Fontconfig
 
@@ -88,11 +91,3 @@ fc-match "Iosevka Fixed SS18"
 fc-match "MesloLGS NF"
 find ~/.local/share/fonts/osyx -maxdepth 2 -type d | sort
 ```
-
-## Paths
-
-| Purpose    | Path                             |
-| ---------- | -------------------------------- |
-| Installer  | `install/setup/display/fonts.sh` |
-| Font files | `~/.local/share/fonts/osyx`      |
-| Fontconfig | `.config/fontconfig/fonts.conf`  |

@@ -1,6 +1,6 @@
 # Gitconfig
 
-This is only for themed Git output, mainly log-style aliases that match the active palette.
+This is only for themed Git output, mainly log style aliases that match the active palette.
 
 The root Git config at [`~/.gitconfig`](/.gitconfig) includes it like this:
 
@@ -26,5 +26,3 @@ For adoption, the only UI requirement is this:
 ```sh
 git config --global include.path ~/.gitconfig.d/theme
 ```
-
-Git picks up the theme file through the include path.
