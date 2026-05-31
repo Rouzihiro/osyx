@@ -7,7 +7,8 @@ let g:coc_global_extensions = [
 \ 'coc-rust-analyzer',
 \ 'coc-go',
 \ 'coc-docker',
-\ 'coc-jedi'
+\ 'coc-jedi',
+\ 'coc-clangd'
 \ ]
 
 let g:coc_user_config = extend(get(g:, 'coc_user_config', {}), {
@@ -32,6 +33,19 @@ if executable('prisma-language-server')
   \     }
   \   }
   \ }, 'force')
+endif
+
+if executable('clangd')
+  let g:coc_user_config = extend(get(g:, 'coc_user_config', {}), {
+  \  'clangd.enabled': v:true,
+  \  'clangd.path': 'clangd',
+  \  'clangd.arguments': [
+  \    '--background-index',
+  \    '--clang-tidy',
+  \    '--completion-style=detailed',
+  \    '--header-insertion=iwyu'
+  \  ]
+  \}, 'force')
 endif
 
 if !exists('g:coc_node_path')

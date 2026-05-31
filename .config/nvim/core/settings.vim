@@ -41,7 +41,7 @@ EOF
 " Auto-format
 augroup CoCAutoFormat
   autocmd!
-  autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.json,*.css,*.md,*.py,*.rs,*.go,*.prisma silent! call CocActionAsync('format')
+  autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.json,*.css,*.md,*.py,*.rs,*.go,*.prisma,*.c,*.cc,*.cpp,*.cxx,*.h,*.hh,*.hpp,*.hxx silent! call CocActionAsync('format')
 augroup END
 
 " Python venv activator
