@@ -21,32 +21,48 @@ let g:coc_user_config = extend(get(g:, 'coc_user_config', {}), {
 \   'suggest.noselect': v:false
 \ }, 'force')
 
+let g:coc_user_config = extend(get(g:, 'coc_user_config', {}), {
+\  'clangd.enabled': v:true,
+\  'clangd.path': 'clangd',
+\  'clangd.arguments': [
+\    '--background-index',
+\    '--completion-style=detailed',
+\    '--query-driver=/usr/bin/clang*,/usr/bin/gcc*,/usr/bin/g++*,/usr/local/bin/clang*,/usr/local/bin/gcc*,/usr/local/bin/g++*'
+\  ],
+\  'clangd.compilationDatabaseCandidates': [
+\    '${workspaceFolder}/build',
+\    '${workspaceFolder}/build/debug',
+\    '${workspaceFolder}/build/release',
+\    '${workspaceFolder}/cmake-build-debug',
+\    '${workspaceFolder}/cmake-build-release',
+\    '${workspaceFolder}/out/build',
+\    '${workspaceFolder}'
+\  ],
+\  'clangd.fallbackFlags': [
+\    '-std=c++20',
+\    '-Wall',
+\    '-Wextra',
+\    '-Isrc',
+\    '-Iinclude'
+\  ],
+\  'clangd.disableProgressNotifications': v:true
+\}, 'force')
+
+let s:language_servers = get(get(g:, 'coc_user_config', {}), 'languageserver', {})
+
 if executable('prisma-language-server')
-  let g:coc_user_config = extend(get(g:, 'coc_user_config', {}), {
-  \   'languageserver': {
-  \     'prisma': {
-  \       'command': 'prisma-language-server',
-  \       'args': ['--stdio'],
-  \       'filetypes': ['prisma'],
-  \       'rootPatterns': ['schema.prisma'],
-  \       'trace.server': 'verbose'
-  \     }
-  \   }
-  \ }, 'force')
+  let s:language_servers['prisma'] = {
+  \ 'command': 'prisma-language-server',
+  \ 'args': ['--stdio'],
+  \ 'filetypes': ['prisma'],
+  \ 'rootPatterns': ['schema.prisma'],
+  \ 'trace.server': 'verbose'
+  \ }
 endif
 
-if executable('clangd')
-  let g:coc_user_config = extend(get(g:, 'coc_user_config', {}), {
-  \  'clangd.enabled': v:true,
-  \  'clangd.path': 'clangd',
-  \  'clangd.arguments': [
-  \    '--background-index',
-  \    '--clang-tidy',
-  \    '--completion-style=detailed',
-  \    '--header-insertion=iwyu'
-  \  ]
-  \}, 'force')
-endif
+let g:coc_user_config = extend(get(g:, 'coc_user_config', {}), {
+\ 'languageserver': s:language_servers
+\}, 'force')
 
 if !exists('g:coc_node_path')
   let s:nodes = glob('~/.nvm/versions/node/v20*/bin/node', 1, 1)
