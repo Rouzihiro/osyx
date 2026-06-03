@@ -1,7 +1,7 @@
 [submodule "thyx"]
     path = thyx
-  	url = https://github.com/rccyx/thyx.git
+  	url = https://github.com/rccyx/packages/thyx.git
 
 [submodule "jarvis"]
     path = jarvis
-  	url = https://github.com/rccyx/jarvis.git
+  	url = https://github.com/rccyx/packages/jarvis.git
