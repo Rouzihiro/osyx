@@ -27,15 +27,12 @@ EXCLUDE_RE: re.Pattern[str] = re.compile(
 
 FOCUS_RE: re.Pattern[str] = re.compile(
     r"""(?x)(
-        ^\.config/|
+        ^config/|
+        ^packages/flavors/|
+        ^provisioning/|
         ^scripts/|
-        ^install/|
-        ^tmux/|
-        ^starship/|
-        ^pip/|
         ^\.vscode/|
         ^\.storybook/|
-        ^\.zshrc$|^\.bashrc$|^\.gitconfig$|^\.editorconfig$|^\.curlrc$|^\.wgetrc$|^\.npmrc$|
         ^README\.md$
     )"""
 )

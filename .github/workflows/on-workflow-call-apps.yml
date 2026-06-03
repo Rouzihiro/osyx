@@ -22,7 +22,7 @@ jobs:
         with:
           filters: |
             apps:
-              - 'install/apps/**'
+              - 'provisioning/apps/**'
 
   apps:
     needs: detect
@@ -54,7 +54,7 @@ jobs:
               sudo apt-get update -y
               sudo apt-get install -y curl wget gnupg ca-certificates git sudo
 
-              for app in install/apps/*; do
+              for app in provisioning/apps/*; do
                 if [[ -f \"\$app\" && \"\${app}\" != *README.md* ]]; then
                   echo \">>> Testing app installer: \$app\"
                   bash \"\$app\" || echo \"::warning::\$app failed to install cleanly\"

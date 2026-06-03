@@ -24,7 +24,7 @@ jobs:
           MAX_BYTES="${MAX_BYTES:-2097152}"
 
           # Allowed buckets for binaries / assets
-          allow_dir_re='^(\.wallpapers/|\.icons/|\.themes/|\.terminfo/|dircolors/|\.local/share/fonts/)'
+          allow_dir_re='^(\.github/images/|assets/|packages/flavors/backgrounds/|config/\.local/share/fonts/)'
 
           # Hard-forbidden sensitive blobs (unencrypted)
           forbid_re='(^|/)(id_rsa|id_ed25519|.*\.pem|.*\.key|.*\.p12|.*\.pfx|.*\.kdbx|.*\.sqlite|.*\.db|.*\.ovpn|.*\.env(\..*)?|.*\.dump|.*\.bak|.*\.swp|.*\.secrets?)$'

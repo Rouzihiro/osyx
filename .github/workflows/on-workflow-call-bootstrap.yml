@@ -38,7 +38,7 @@ jobs:
               git config --global --add safe.directory /home/smoke/osyx
 
               echo '>>> Running Fresh Bootstrap (root stage)...'
-              sudo bash ./install/bootstrap fresh \
+              sudo bash ./provisioning/bootstrap fresh \
                 --user=smoke \
                 --yes \
                 --locale=en_US.UTF-8 \
@@ -49,20 +49,20 @@ jobs:
               sudo chmod -R u+rwX,go+rX /home/smoke/osyx
 
               echo '>>> Running Bootstrap Plan...'
-              bash ./install/bootstrap plan \
+              bash ./provisioning/bootstrap plan \
                 --profile=min \
                 --locale=en_US.UTF-8 \
                 --tz=Europe/London
 
               echo '>>> Running Bootstrap Apply...'
-              bash ./install/bootstrap apply \
+              bash ./provisioning/bootstrap apply \
                 --profile=min \
                 --yes \
                 --locale=en_US.UTF-8 \
                 --tz=Europe/London
 
               echo '>>> Checking Bootstrap Status...'
-              bash ./install/bootstrap status
+              bash ./provisioning/bootstrap status
 
               echo '>>> Smoke test completed successfully.'
             "
