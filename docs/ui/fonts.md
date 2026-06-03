@@ -11,7 +11,7 @@
 If you look on the right side of this repository on GitHub, you'll see that I've uploaded the fonts as a release package you can install:
 
 ```sh
-bash install/setup/display/fonts.sh
+bash provisioning/setup/display/fonts.sh
 ```
 
 This downloads the pinned release archive, extracts it into `~/.local/share/fonts/osyx`, and refreshes the Fontconfig cache. Keeps a state file at `.state/fonts.version` and exits cleanly if the installed version already matches.
@@ -28,11 +28,11 @@ Bundle layout:
 Requires: `curl`, `tar`, `fc-cache`
 
 > [!TIP]
-> If you don't like the fonts, simply remove `~/.local/share/fonts/osyx`, and use your old `.config/fontconfig/fonts.conf` file.
+> If you don't like the fonts, simply `rm -rf ~/.local/share/fonts/osyx`, and use your old `~/.config/fontconfig/fonts.conf` file instead.
 
 ## Fontconfig
 
-`.config/fontconfig/fonts.conf` is as important as the font files. It controls rendering behavior (antialias, hinting, hintstyle, RGB subpixel order, LCD filtering) and the family routing that makes Inter look right.
+`config/.config/fontconfig/fonts.conf` (maps to `~/.config/fontconfig/fonts.conf`) is as important as the font files. It controls rendering behavior (antialias, hinting, hintstyle, RGB subpixel order, LCD filtering) and the family routing that makes Inter look right.
 
 Since Inter has this weird auto adjusting property.
 

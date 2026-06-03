@@ -8,7 +8,7 @@ Everything updates at once, across every open terminal, without touching a singl
 
 Starship, Tmux, Hyprland border colors, Mako, Wofi, Neovim, Dircolors, Gitconfig log and diff aliases, wallpaper selection, and the Thyx login preset.
 
-What it doesn't own: GTK, Obsidian, Spotify, browser chrome. Those stay manual. If you watched the demos and saw Obsidian matching the palette, I did that manually for the demo. Same for picking a Spotify song, for example, Halsey's Badlands album looks perfect for the Malachite theme. Daily use keeps it neutral. My current Obsidian setup uses a black and white palette that works with everything. Flavors covers the desktop. Apps are on you.
+What it doesn't own: GTK, Obsidian, Spotify, browser chrome. Those stay manual. If you watched the demos and saw Obsidian matching the palette, I did that manually for the demo. Same for picking a Spotify, for example, Halsey's Badlands album looks perfect for the Malachite theme. Daily use keeps it neutral. My current Obsidian setup uses a black and white palette that works with everything. Flavors covers the desktop. Apps are on you.
 
 Kitty is intentionally excluded. It has a fixed base config: one background, transparency, font, white cursor. I thought about adding it to Flavors but the terminal is supposed to be the neutral canvas everything else renders on. Adding it would break that.
 
@@ -29,7 +29,7 @@ live reload
 The source files are the palettes and templates. Everything else is a generated output. You edit the palette or the template, run the generator, and the whole environment updates.
 
 ```
-flavors/
+packages/flavors/
 ├── palettes/       source palettes
 ├── base/           jinja templates
 ├── backgrounds/    wallpaper files
@@ -42,7 +42,7 @@ flavors/
 
 ## Palettes
 
-Palettes live in `flavors/palettes/`. Each palette is a TOML file split by target surface:
+Palettes live in `packages/flavors/palettes/`. Each palette is a TOML file split by target surface:
 
 ```toml
 [starship]
@@ -92,7 +92,7 @@ CSS gets RGB. Dircolors gets ANSI. TOML and Lua get raw hex. Every template gets
 
 ## Templates
 
-Templates live in `flavors/base/`. Each one is a normal config file with palette variables inserted through Jinja.
+Templates live in `packages/flavors/base/`. Each one is a normal config file with palette variables inserted through Jinja.
 
 ```
 dircolors.j2
@@ -130,17 +130,17 @@ color: #{{ wofi_border }};
 
 ## Generated outputs
 
-The generator writes real config files back into the repo, which mirrors home (`~`).
+The generator writes real config files into `config/`, which is the repo's home-directory mirror.
 
 ```
-flavors/base/mako.conf.j2       → .config/mako/config
-flavors/base/starship.toml.j2   → .config/starship.toml
-flavors/base/dircolors.j2       → .dircolors
-flavors/base/hypr.conf.j2       → .config/hypr/theme.conf
-flavors/base/tmux.conf.j2       → tmux/theme.conf
-flavors/base/wofi.css.j2        → .config/wofi/style.css
-flavors/base/nvim.lua.j2        → .config/nvim/lua/theme.lua
-flavors/base/gitconfig.j2       → .gitconfig.d/theme
+packages/flavors/base/mako.conf.j2       → config/.config/mako/config
+packages/flavors/base/starship.toml.j2   → config/.config/starship.toml
+packages/flavors/base/dircolors.j2       → config/.dircolors
+packages/flavors/base/hypr.conf.j2       → config/.config/hypr/theme.conf
+packages/flavors/base/tmux.conf.j2       → config/tmux/current.conf
+packages/flavors/base/wofi.css.j2        → config/.config/wofi/style.css
+packages/flavors/base/nvim.lua.j2        → config/.config/nvim/lua/theme.lua
+packages/flavors/base/gitconfig.j2       → config/.gitconfig.d/theme
 ```
 
 ## Runtime
@@ -232,7 +232,7 @@ Clone the repo and copy Flavors to home:
 
 ```sh
 git clone https://github.com/rccyx/osyx.git
-cp -r osyx/flavors ~/flavors
+cp -r osyx/packages/flavors ~/flavors
 ```
 
 Before you do anything, back up whatever configs you have running. Flavors will overwrite the following:
@@ -241,15 +241,15 @@ Before you do anything, back up whatever configs you have running. Flavors will 
 - `~/.dircolors`
 - `~/.config/mako/config`
 - `~/.config/wofi/style.css`
-- `tmux/theme.conf`
+- `~/tmux/current.conf`
 
 Copy the tool configs:
 
 ```sh
-cp osyx/.tmux.conf ~/.tmux.conf
 mkdir -p ~/tmux
-cp -r osyx/.config/mako ~/.config/mako
-cp -r osyx/.config/wofi ~/.config/wofi
+cp osyx/config/.tmux.conf ~/.tmux.conf
+cp -r osyx/config/.config/mako ~/.config/mako
+cp -r osyx/config/.config/wofi ~/.config/wofi
 ```
 
 Wire the shell in `.zshrc`:
@@ -288,7 +288,7 @@ Two paths:
 **Use my Neovim config.** It's self-contained, bootstraps vim-plug on first launch, and hot-reloads via `:OsyxFlip` when themes switch:
 
 ```sh
-cp -r osyx/.config/nvim ~/.config/nvim
+cp -r osyx/config/.config/nvim ~/.config/nvim
 ```
 
 **Use your own config.** Simply pick a nvim theme that fits, and wire it in the Python generator
@@ -297,7 +297,7 @@ Read [nvim.md](./nvim.md) .
 
 ## Thyx matching
 
-Thyx is the SDDM login screen. I keep it visually aligned with the desktop through `flavors/thyx-map.conf`:
+Thyx is the SDDM login screen. I keep it visually aligned with the desktop through `packages/flavors/thyx-map.conf`:
 
 ```ini
 blush=blush
@@ -306,5 +306,3 @@ malachite=malachite
 ```
 
 When a flavor is applied, the runtime checks this map and updates the Thyx preset. Anything unmapped falls back to `ash`.
-
-Till Thyx is out though, you can ignore this.

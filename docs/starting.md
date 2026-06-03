@@ -12,16 +12,16 @@ There is no desktop environment. You boot in, Hyprland starts, and Hyprland is e
 
 What makes it look the way it does in the demos is entirely these programs working together.
 
-1. [Fonts](./fonts.md)
-2. [Flavors](./flavors.md)
-3. [Zsh](./zsh.md)
-4. [Starship](./starship.md)
-5. [Tmux](./tmux.md)
-6. [Dircolors](./dircolors.md)
-7. [Hyprland](./hypr.md)
-8. [Mako](./mako.md)
-9. [Wofi](./wofi.md)
-10. [Neovim](./nvim.md)
+1. [Fonts](./ui/fonts.md)
+2. [Flavors](./ui/flavors.md)
+3. [Zsh](./ui/zsh.md)
+4. [Starship](./ui/starship.md)
+5. [Tmux](./ui/tmux.md)
+6. [Dircolors](./ui/dircolors.md)
+7. [Hyprland](./ui/hypr.md)
+8. [Mako](./ui/mako.md)
+9. [Wofi](./ui/wofi.md)
+10. [Neovim](./ui/nvim.md)
 
 > [!NOTE]
 > A top bar is basically redundant here. Starship already tells time. Event driven notifications surface critical system vitals (thermals, battery, etc).
@@ -53,6 +53,21 @@ _keybinds.conf     personal
 _startup.conf      personal
 _variables.conf    personal
 _clipboard.conf    generated / machine-local
+```
+
+The root `config/` folder maps directly to `~`. So `config/.config` is `~/.config/` and `config/.tmux.conf` is `~/.tmux.conf` and so on.
+
+Some surfaces:
+
+```text
+config/zsh/                shell modules
+config/.gitconfig          git entry config
+config/.gitconfig.d/       git modules
+config/.config/hypr/       Hyprland compositor config
+config/.config/kitty/      terminal config
+config/.config/nvim/       Neovim config
+config/.config/swappy/     screenshot annotation
+...
 ```
 
 > [!IMPORTANT]
@@ -135,38 +150,19 @@ Wofi is launcher and picker surface.
 
 ### 9. Neovim
 
-[neovim.md](./ui/neovim.md)
+[nvim.md](./ui/nvim.md)
 
 Neovim is optional.
 
 ## Repo map
 
-The repo is shaped like a home directory:
+The repo is now split by purpose. `config/` is the home-directory mirror; packages and provisioning live outside that mirror.
 
 ```text
-.config/      user-space configs
-zsh/          shell modules
-flavors/      palette engine
-install/      bootstrap and setup scripts
-assets/       screenshots and gifs
-.github/      CI and repo checks
-docs/         documentation
-```
-
-## `.config`
-
-`.config/` maps to `~/.config/`:
-
-Some surfaces:
-
-```text
-.config/hypr/        Hyprland compositor config
-.config/kitty/       terminal config
-.config/nvim/        Neovim config
-.config/fontconfig/  font routing
-.config/wofi/        launcher behavior
-.config/mako/        notification config
-.config/lsd/         file listing config
-.config/swappy/      screenshot annotation
-.config/waypaper/    wallpaper restore
+config/        user-space configs that map into ~
+packages/      standalone tools and package-like modules
+provisioning/  bootstrap, runtime, app, and setup scripts
+assets/        screenshots and gifs
+.github/       CI and repo checks
+docs/          documentation
 ```

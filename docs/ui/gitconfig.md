@@ -2,7 +2,7 @@
 
 This is only for themed Git output, mainly log style aliases that match the active palette.
 
-The root Git config at [`~/.gitconfig`](/.gitconfig) includes it like this:
+The repo copy is [`config/.gitconfig`](/config/.gitconfig). Installed as `~/.gitconfig`, it includes the themed output like this:
 
 ```ini
 [include]
@@ -12,7 +12,7 @@ The root Git config at [`~/.gitconfig`](/.gitconfig) includes it like this:
 The config is modular:
 
 ```text
-.gitconfig.d/
+config/.gitconfig.d/
 ├── config
 ├── aliases
 ├── theme

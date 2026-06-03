@@ -3,8 +3,8 @@
 The shell is split into a small loader and four modules.
 
 ```text
-.zshrc
-zsh/
+config/.zshrc        -> ~/.zshrc
+config/zsh/          -> ~/zsh/
 ├── _env.zsh
 ├── core.zsh
 ├── tools.zsh
@@ -34,7 +34,8 @@ Copy the files:
 
 ```sh
 mkdir -p ~/zsh
-cp zsh/core.zsh zsh/tools.zsh zsh/_env.zsh zsh/_aliases.zsh ~/zsh/
+cp config/zsh ~
+cp config/.zshrc ~/.zshrc
 ```
 
 Edit the personal files first:

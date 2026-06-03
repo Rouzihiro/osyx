@@ -40,7 +40,7 @@ Right now Debian is the base because it gives me a predictable substrate. Long t
 
 ## "If it ain't broke don't fix it"
 
-Someone asked me the other day why I don't upgrade Hyprland 0.49 (May 2025) to the latest versions using the new Lua configs and newer ecosystems around it.
+Someone asked me the other day why I don't constantly chase every Hyprland release, config migration, and newer ecosystem around it.
 
 Well, the current setup already works perfectly.
 
@@ -48,4 +48,4 @@ Pulling the latest compositor update should not risk dropping your machine into 
 
 This project is built specifically to avoid that class of failure.
 
-For example, Hyprland itself is built through a separate layer with pinned versions, automated builds, and CI/CD validation. Run after the initial [bootstrap](./github/workflows/on-workflow-call-bootstrap.yml). This builder will also be open sourced.
+For example, Hyprland itself is built through a separate layer with pinned versions, automated builds, and CI/CD validation. Run after the initial [bootstrap](../.github/workflows/on-workflow-call-bootstrap.yml). This builder will also be open sourced.

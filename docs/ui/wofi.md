@@ -6,19 +6,17 @@ App launching is rare in my workflow. Most Wofi usage is clipboard management wh
 
 **Files:**
 
-```text
-.config/wofi/config
-.config/wofi/style.css
-```
+`config/.config/wofi/config` ---> maps to: `~/.config/wofi/config`
+`config/.config/wofi/style.css` ---> maps to: `~/.config/wofi/style.css`
 
 The static config controls launcher behavior.
 
 `style.css` is generated theme output.
 
 ```text
-flavors/base/wofi.css.j2
+packages/flavors/base/wofi.css.j2
         ↓
-flavors/generate.py
+packages/flavors/generate.py
         ↓
-.config/wofi/style.css
+config/.config/wofi/style.css
 ```
