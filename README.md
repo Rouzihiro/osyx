@@ -13,7 +13,6 @@
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/39dfa21b-c6df-4be8-9971-d2043d3352b7" />
 
-
 ### Demos
 
 <a href="https://youtu.be/6Hd7L2aBmFk">
@@ -27,7 +26,6 @@
 <a href="https://youtu.be/hfwcOR_xJJA">
   <img src="https://github.com/user-attachments/assets/9d7e6c58-34aa-4c89-bf49-758bb13a6913" alt="osyx demo">
 </a>
-
 
 ## TL;DR
 
