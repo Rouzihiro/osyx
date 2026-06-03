@@ -1,10 +1,14 @@
 # Stack
 
-These have basically been unchanged for years, updated to latest when it makes sense, but took a very long time to refine:
-
 - **Distro:** Debian `v13`.
 - **Display:** Wayland `v1.24.0`.
-- **Compositor:** Hyprland `v0.49.0` (hyprutils `v0.8.1`, hyprcursor `v0.1.12`, hyprgraphics `v0.1.5`)
+- **Compositor:**
+  - Hyprland `v0.53.3` built from branch `main` at commit `dd220efe7b1e292415bd0ea7161f63df9c95bfd3`
+  - Hyprgraphics: `v0.4.0`
+  - Hyprutils: `0.11.0`,
+  - Hyprcursor: `0.1.13`
+  - Hyprlang: `0.6.8`
+  - Aquamarine: `0.10.0`
 - **Terminal:** Kitty `v0.41.1`.
 - **Lockscreen**: Hyprlock `v0.9.5`.
 - **Multiplexer:** Tmux `v3.5a`.
