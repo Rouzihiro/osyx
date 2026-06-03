@@ -23,11 +23,11 @@ source "$HOME/zsh/tools.zsh"
 # Personal aliases
 source "$HOME/zsh/_aliases.zsh"
 
-# # Jarvis command center
-# [ -f "$HOME/jarvis/entrypoint.zsh" ] && source "$HOME/jarvis/entrypoint.zsh"
+# Jarvis command center
+[ -f "$HOME/jarvis/entrypoint.zsh" ] && source "$HOME/jarvis/entrypoint.zsh"
 
-# # Theme orchestrator (dircolors, live reload, themes function)
-# source "$HOME/flavors/themes.zsh"
+# Theme orchestrator (dircolors, live reload, themes function)
+source "$HOME/flavors/themes.zsh"
 
 # cashout potential
 ulimit -c 0
