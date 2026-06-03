@@ -23,9 +23,7 @@
 
 ## TL;DR
 
-I'm building an operating system interface from scratch, and open sourcing the pieces gradually.
-
-Even though it looks like a dots repo, it's really not just dots. Since dots imply simply a dump of configs. This project though, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian into the slick, keyboard driven workspace you saw in the demos.
+This project, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian into the slick, keyboard driven workspace you saw in the demos.
 
 Debian is treated mostly as a stable [substrate](/.github/workflows/on-workflow-call-bootstrap.yml) and package source (starts off without even having `sudo`).
 

@@ -26,6 +26,7 @@ LOG_DIR="$LOG_DIR_DEFAULT"
 STATE_FILE="$STATE_FILE_DEFAULT"
 
 HYPRBUILD_REL="hyprtryx/hyprtryx"
+BOOTSTRAP_REL="provisioning/bootstrap"
 
 # shellcheck source=/dev/null
 source "$SCRIPT_DIR/bootstrap.d/core.sh"

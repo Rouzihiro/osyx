@@ -31,7 +31,11 @@ now_stamp(){ date +"%Y%m%d-%H%M%S"; }
 start_logging(){
   mk_dirs
   local runlog="$LOG_DIR/$(now_stamp)-${CMD:-noop}.log"
-  exec > >(tee -a "$runlog") 2>&1
+  if { : >> "$runlog"; } 2>/dev/null; then
+    exec > >(tee -a "$runlog") 2>&1
+  else
+    runlog="disabled ($runlog not writable)"
+  fi
   log "${C_BOLD}bootstrap${C_RESET} v$VERSION"
   log "repo:   $REPO_ROOT"
   log "cmd:    ${CMD:-}"
@@ -44,7 +48,7 @@ start_logging(){
   log "locale: $LOCALE"
   log "tz:     $TZ"
   log "with:   ${WITH:-}"
-  log "hypr:   $([[ "$NO_HYPR" -eq 1 ]] && echo "skip" || echo "install")"
+  log "hypr:   $([[ "${NO_HYPR:-0}" -eq 1 ]] && echo "skip" || echo "install")"
   log "log:    $runlog"
   log ""
 }

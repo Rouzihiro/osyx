@@ -157,14 +157,14 @@ important behavior:
   some changes require relogin or reboot (group membership, default shell). the script will tell you when.
 
     examples:
-      sudo ./install/bootstrap fresh --user=$(id -un) --yes
-      ./install/bootstrap plan --profile=desktop
-      ./install/bootstrap apply --profile=desktop --yes
-      ./install/bootstrap apply --profile=min --yes
-      ./install/bootstrap doctor
-      ./install/bootstrap status
-      ./install/bootstrap clean
-      ./install/bootstrap clean --all
+      sudo ./$BOOTSTRAP_REL fresh --user=$(id -un) --yes
+      ./$BOOTSTRAP_REL plan --profile=desktop
+      ./$BOOTSTRAP_REL apply --profile=desktop --yes
+      ./$BOOTSTRAP_REL apply --profile=min --yes
+      ./$BOOTSTRAP_REL doctor
+      ./$BOOTSTRAP_REL status
+      ./$BOOTSTRAP_REL clean
+      ./$BOOTSTRAP_REL clean --all
 EOF
 }
 
@@ -250,7 +250,7 @@ plan(){
   fi
 
   log ""
-  log "to apply: ${C_BOLD}./install/bootstrap apply --profile=$PROFILE --prefix=$PREFIX --yes${C_RESET}"
+  log "to apply: ${C_BOLD}./$BOOTSTRAP_REL apply --profile=$PROFILE --prefix=$PREFIX --yes${C_RESET}"
 }
 
 apply(){
@@ -259,7 +259,7 @@ apply(){
 
   if [[ "${YES:-0}" -ne 1 ]]; then
     warn "confirmation required"
-    log "run: ./install/bootstrap apply --yes --profile=$PROFILE"
+    log "run: ./$BOOTSTRAP_REL apply --yes --profile=$PROFILE"
     exit 2
   fi
 
@@ -319,14 +319,14 @@ apply(){
   save_state_kv "OSYX_BOOTSTRAP_APPLIED_AT" "$(date -Is 2>/dev/null || date)"
 
   info "installing core runtimes"
-  run_local_script "install/runtimes/rust"
-  run_local_script "install/runtimes/node"
-  run_local_script "install/runtimes/pnpm"
-  run_local_script "install/runtimes/go"
-  run_local_script "install/runtimes/uv"
+  run_local_script "provisioning/runtimes/rust"
+  run_local_script "provisioning/runtimes/node"
+  run_local_script "provisioning/runtimes/pnpm"
+  run_local_script "provisioning/runtimes/go"
+  run_local_script "provisioning/runtimes/uv"
 
   info "setting up shell plugins"
-  run_local_script "install/setup/shell/enable-zsh-plugs.zsh"
+  run_local_script "provisioning/setup/shell/enable-zsh-plugs.zsh"
 
   ok "done"
   if [[ "${OSYX_BOOTSTRAP_NEEDS_RELOGIN:-0}" == "1" ]]; then
@@ -336,7 +336,7 @@ apply(){
 
 fresh_root_stage(){
   local user="$1"
-  [[ "${EUID:-$(id -u)}" -eq 0 ]] || die "fresh must run as root (use: sudo ./install/bootstrap fresh --user=... )"
+  [[ "${EUID:-$(id -u)}" -eq 0 ]] || die "fresh must run as root (use: sudo ./$BOOTSTRAP_REL fresh --user=... )"
   export DEBIAN_FRONTEND=noninteractive
 
   info "fresh stage: base system packages"
@@ -396,7 +396,7 @@ fresh(){
   ok "fresh complete"
   if [[ -n "$user" ]]; then
     warn "now log in as: $user"
-    log "then run: ./install/bootstrap apply --profile=$PROFILE_DEFAULT --yes"
+    log "then run: ./$BOOTSTRAP_REL apply --profile=$PROFILE_DEFAULT --yes"
   else
     warn "could not determine user automatically"
     log "run apply as your normal user after you log in"
