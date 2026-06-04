@@ -130,17 +130,17 @@ color: #{{ wofi_border }};
 
 ## Generated outputs
 
-The generator writes real config files into `config/`, which is the repo's home-directory mirror.
+The generator writes real config files into `$HOME` from the installed `~/flavors` copy.
 
 ```
-packages/flavors/base/mako.conf.j2       → config/.config/mako/config
-packages/flavors/base/starship.toml.j2   → config/.config/starship.toml
-packages/flavors/base/dircolors.j2       → config/.dircolors
-packages/flavors/base/hypr.conf.j2       → config/.config/hypr/theme.conf
-packages/flavors/base/tmux.conf.j2       → config/tmux/current.conf
-packages/flavors/base/wofi.css.j2        → config/.config/wofi/style.css
-packages/flavors/base/nvim.lua.j2        → config/.config/nvim/lua/theme.lua
-packages/flavors/base/gitconfig.j2       → config/.gitconfig.d/theme
+packages/flavors/base/mako.conf.j2       → ~/.config/mako/config
+packages/flavors/base/starship.toml.j2   → ~/.config/starship.toml
+packages/flavors/base/dircolors.j2       → ~/.dircolors
+packages/flavors/base/hypr.conf.j2       → ~/.config/hypr/theme.conf
+packages/flavors/base/tmux.conf.j2       → ~/.tmux.conf
+packages/flavors/base/wofi.css.j2        → ~/.config/wofi/style.css
+packages/flavors/base/nvim.lua.j2        → ~/.config/nvim/lua/theme.lua
+packages/flavors/base/gitconfig.j2       → ~/.gitconfig.d/theme
 ```
 
 ## Runtime
@@ -241,13 +241,10 @@ Before you do anything, back up whatever configs you have running. Flavors will 
 - `~/.dircolors`
 - `~/.config/mako/config`
 - `~/.config/wofi/style.css`
-- `~/tmux/current.conf`
 
 Copy the tool configs:
 
 ```sh
-mkdir -p ~/tmux
-cp osyx/config/.tmux.conf ~/.tmux.conf
 cp -r osyx/config/.config/mako ~/.config/mako
 cp -r osyx/config/.config/wofi ~/.config/wofi
 ```

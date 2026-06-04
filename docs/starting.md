@@ -55,7 +55,7 @@ _variables.conf    personal
 _clipboard.conf    generated / machine-local
 ```
 
-The root `config/` folder maps directly to `~`. So `config/.config` is `~/.config/` and `config/.tmux.conf` is `~/.tmux.conf` and so on.
+The root `config/` folder maps directly to `~`. So `config/.config` is `~/.config/` and shell dotfiles like `config/.zshrc` map to `~/.zshrc`.
 
 Some surfaces:
 

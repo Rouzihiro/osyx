@@ -7,7 +7,6 @@ Examples:
 ```text
 config/.zshrc        -> ~/.zshrc
 config/zsh/          -> ~/zsh/
-config/.tmux.conf    -> ~/.tmux.conf
 config/.gitconfig    -> ~/.gitconfig
 config/.config/hypr/ -> ~/.config/hypr/
 ```
