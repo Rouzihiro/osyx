@@ -1,5 +1,5 @@
 [submodule "jarvis"]
-    path = packages/jarvis
+    path = config/jarvis
   	url = https://github.com/rccyx/jarvis.git
 
 [submodule "powyx"]
