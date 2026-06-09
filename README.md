@@ -9,9 +9,11 @@
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/26f28ab8-fcd0-4335-a273-2d9f9f4e509d" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ad2f6135-1ff5-40a1-8e47-57c745b5c7ed" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d9d7f748-79a6-4053-a269-32b902b85743" />
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/39dfa21b-c6df-4be8-9971-d2043d3352b7" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d3501cbc-77a0-459e-b233-2ea3f112445c" />
 
 ### Demos
 
@@ -29,12 +31,12 @@
 
 ## TL;DR
 
-This project, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian into the slick, keyboard driven workspace you saw in the demos.
+This project, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian into the slick, keyboard driven workspace you saw in the demos (not just dots).
 
 Debian is treated mostly as a stable [substrate](/.github/workflows/on-workflow-call-bootstrap.yml) and package source (starts off without even having `sudo`).
 
 > [!IMPORTANT]
-> Some configurations, scripts, programs, etc, are kept private until they're stable enough to release. The rest is here as a mirror and reference material, copy what you want.
+> Some configurations, scripts, programs, etc, are kept private until they're stable enough to release. The rest is here as a mirror and reference material, take what you want.
 
 ## Explainers
 
@@ -45,23 +47,11 @@ If you want to dig through:
 - [Stack](./docs/stack.md) (If it ain't broke don't fix it)
 - [Philosophy](./docs/philosophy.md) (Overall premise and why I'm doing this)
 
-## Engines
+## Custom Tools
 
 These are standalone tools written from scratch, that can be airdropped into any distro. Open sourced gradually:
 
-### [Asryx](https://github.com/rccyx/asryx) (released: 25/05/26)
-
-The transcription program from the demo.
-
-Native Linux ASR binary. Written in C++ and embedded via whiser.cpp's C API, daemonless, offline, no bloat, no GUI, no config overhead.
-
-<p align="center">
-  <a href="https://github.com/rccyx/asryx">
-    <img src="./assets/asryx.gif" alt="Asryx Demo" width="100%">
-  </a>
-</p>
-
-### [Lookas](https://github.com/rccyx/lookas) (released: 02/04/26)
+### [Lookas](https://github.com/rccyx/lookas)
 
 A terminal audio visualizer built around human auditory perception. Moves beyond raw FFT twitchiness using Mel-scaling and spring damper physics.
 
@@ -75,6 +65,18 @@ cargo install lookas && lookas
   </a>
 </p>
 
+### [Asryx](https://github.com/rccyx/asryx)
+
+The transcription program from the demo.
+
+Native Linux ASR binary. Written in C++ and embedded via whiser.cpp's C API, daemonless, offline, no bloat, no GUI, no config overhead.
+
+<p align="center">
+  <a href="https://github.com/rccyx/asryx">
+    <img src="./assets/asryx.gif" alt="Asryx Demo" width="100%">
+  </a>
+</p>
+
 ### Thyx (Next)
 
 A QML based SDDM login screen with video backgrounds, fingerprint auth, and a composable design system. Terraform like state management for installation/uninstallation. Contains absolutely zero bloat, and fully configurable.
@@ -84,8 +86,6 @@ A QML based SDDM login screen with video backgrounds, fingerprint auth, and a co
 ### Powyx (Unreleased)
 
 The glassmorphic power menu from the demo.
-
-Even though this is a GUI, it solves a real latency problem: if a terminal is not already open, `Alt + P` is faster than spawning a shell (~2.4s load time via `Alt + K`) just to type `sdn`.
 
 <p align="center">
   <a href="https://github.com/rccyx/powyx">
