@@ -69,7 +69,7 @@ selected_bg = "d7ccc8"
 selected_text = "3e2723"
 
 [nvim]
-colorscheme = "catppuccin"
+colorscheme = "kanagawa-dragon"
 bg = "3e2723"
 fg = "d7ccc8"
 accent = "bcaaa4"
