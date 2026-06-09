@@ -9,10 +9,22 @@
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/26f28ab8-fcd0-4335-a273-2d9f9f4e509d" />
 
-### Demo
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ad2f6135-1ff5-40a1-8e47-57c745b5c7ed" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/39dfa21b-c6df-4be8-9971-d2043d3352b7" />
+
+### Demos
+
+<a href="https://youtu.be/6Hd7L2aBmFk">
+  <img src="https://github.com/user-attachments/assets/dd6360de-0b83-46d4-a005-7fd6a6d57fae" alt="osyx demo">
+</a>
 
 <a href="https://www.youtube.com/watch?v=agGcxm24N84">
   <img src="https://github.com/user-attachments/assets/f9606dcd-571d-460a-a33c-3bb0a6166602" alt="osyx demo">
+</a>
+
+<a href="https://youtu.be/hfwcOR_xJJA">
+  <img src="https://github.com/user-attachments/assets/9d7e6c58-34aa-4c89-bf49-758bb13a6913" alt="osyx demo">
 </a>
 
 ## TL;DR
