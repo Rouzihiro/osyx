@@ -9,11 +9,17 @@
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/26f28ab8-fcd0-4335-a273-2d9f9f4e509d" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d9d7f748-79a6-4053-a269-32b902b85743" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/baf46c43-216d-48a8-861f-4005fe5c751a" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/39dfa21b-c6df-4be8-9971-d2043d3352b7" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d0351013-d7e7-4262-8b0b-9ccd35a6eb33" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/800e69ec-1e8f-4684-bdf1-101616b688a2" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/75a05c22-52b3-4457-b00d-2241ef908bf8" />
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d3501cbc-77a0-459e-b233-2ea3f112445c" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/39dfa21b-c6df-4be8-9971-d2043d3352b7" />
 
 ### Demos
 
@@ -31,7 +37,9 @@
 
 ## TL;DR
 
-This project, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian into the slick, keyboard driven workspace you saw in the demos (not just dots).
+This project, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian into the slick, keyboard driven workspace you saw in the demos.
+
+Not just a collection of dots (although pure dots are found [here](./config/)).
 
 Debian is treated mostly as a stable [substrate](/.github/workflows/on-workflow-call-bootstrap.yml) and package source (starts off without even having `sudo`).
 
@@ -42,14 +50,14 @@ Debian is treated mostly as a stable [substrate](/.github/workflows/on-workflow-
 
 If you want to dig through:
 
-- [Starting](./docs/starting.md) (Want the eye candy? How to go by this)
+- [Starting](./docs/starting.md) (Want the eye candy? Theme switching, wallpapers, hypr, etc? How to go by this)
 - [Workflow](./docs/workflow.md) (If you reach for a mouse, you've already lost)
 - [Stack](./docs/stack.md) (If it ain't broke don't fix it)
 - [Philosophy](./docs/philosophy.md) (Overall premise and why I'm doing this)
 
 ## Custom Tools
 
-These are standalone tools written from scratch, that can be airdropped into any distro. Open sourced gradually:
+These are standalone tools written from scratch, that can be airdropped into any distro. Open sourced gradually (when stable):
 
 ### [Lookas](https://github.com/rccyx/lookas)
 
@@ -86,12 +94,6 @@ A QML based SDDM login screen with video backgrounds, fingerprint auth, and a co
 ### Powyx (Unreleased)
 
 The glassmorphic power menu from the demo.
-
-<p align="center">
-  <a href="https://github.com/rccyx/powyx">
-    <img src="https://github.com/user-attachments/assets/0c99e97e-e639-4a30-8afd-b373b759661a" alt="Powyx" width="100%">
-  </a>
-</p>
 
 ### Jarvis (Unreleased)
 
