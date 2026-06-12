@@ -27,6 +27,10 @@
   <img src="https://github.com/user-attachments/assets/dd6360de-0b83-46d4-a005-7fd6a6d57fae" alt="osyx demo">
 </a>
 
+<a href="https://youtu.be/03FGf8kWCvE">
+  <img src="https://github.com/user-attachments/assets/9b1bdf9b-0495-427b-a806-ebcd6b344eea" alt="osyx demo">
+</a>
+
 <a href="https://www.youtube.com/watch?v=agGcxm24N84">
   <img src="https://github.com/user-attachments/assets/f9606dcd-571d-460a-a33c-3bb0a6166602" alt="osyx demo">
 </a>
