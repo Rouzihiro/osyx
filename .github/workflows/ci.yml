@@ -23,31 +23,41 @@ jobs:
     uses: ./.github/workflows/on-workflow-call-check-secrets.yml
     secrets: inherit
 
+  changes:
+    uses: ./.github/workflows/on-workflow-call-changes.yml
+
   lint:
-    needs: secrets
+    needs: [secrets, changes]
+    if: needs.changes.outputs.non_docs == 'true'
     uses: ./.github/workflows/on-workflow-call-lint.yml
 
   submodules:
-    needs: secrets
+    needs: [secrets, changes]
+    if: needs.changes.outputs.non_docs == 'true'
     uses: ./.github/workflows/on-workflow-call-submodule-integrity.yml
     secrets: inherit
 
   nix:
-    needs: secrets
+    needs: [secrets, changes]
+    if: needs.changes.outputs.non_docs == 'true'
     uses: ./.github/workflows/on-workflow-call-nix.yml
 
   duplicates:
-    needs: secrets
+    needs: [secrets, changes]
+    if: needs.changes.outputs.non_docs == 'true'
     uses: ./.github/workflows/on-workflow-call-duplicate-configs.yml
 
   forbidden:
-    needs: secrets
+    needs: [secrets, changes]
+    if: needs.changes.outputs.non_docs == 'true'
     uses: ./.github/workflows/on-workflow-call-forbidden-blobs.yml
 
   bootstrap:
-    needs: secrets
+    needs: [secrets, changes]
+    if: needs.changes.outputs.non_docs == 'true'
     uses: ./.github/workflows/on-workflow-call-bootstrap.yml
 
   apps:
-    needs: secrets
+    needs: [secrets, changes]
+    if: needs.changes.outputs.non_docs == 'true'
     uses: ./.github/workflows/on-workflow-call-apps.yml
