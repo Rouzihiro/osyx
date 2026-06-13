@@ -77,18 +77,6 @@ cargo install lookas && lookas
   </a>
 </p>
 
-### [Asryx](https://github.com/rccyx/asryx)
-
-The transcription program from the demo.
-
-Native Linux ASR binary. Written in C++ and embedded via whiser.cpp's C API, daemonless, offline, no bloat, no GUI, no config overhead.
-
-<p align="center">
-  <a href="https://github.com/rccyx/asryx">
-    <img src="./assets/asryx.gif" alt="Asryx Demo" width="100%">
-  </a>
-</p>
-
 ### Thyx (Next)
 
 A QML based SDDM login screen with video backgrounds, fingerprint auth, and a composable design system. Terraform like state management for installation/uninstallation. Contains absolutely zero bloat, and fully configurable.

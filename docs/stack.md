@@ -14,7 +14,7 @@
   - **Emulator:** Kitty `v0.41.1`.
   - **Multiplexer:** Tmux `v3.5a`.
   - **Shell:** Zsh `v5.9` + Starship `v1.23.0` + Lsd `v1.1.5`.
-- **Wallpaper(s):** By artists such as [Dominik Mayer](https://x.com/DominikMayerArt), [Susan Wilkinson](https://www.instagram.com/susan.wilkinson.photography/), [Pawel Czerwinski](https://www.instagram.com/pmcze/), [François Lemoyne](https://en.wikipedia.org/wiki/Fran%C3%A7ois_Lemoyne) and more.
+- **Wallpaper(s):** By [artists](/packages/flavors/backgrounds/README.md).
 - **Notifications:** Mako `v1.10.0-1`.
 - **Fonts:** Inter (sans), Iosevka (mono), Meslo (NerdFonts fallback).
 - **Audio:** PipeWire `v1.4.2`.
