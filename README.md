@@ -9,39 +9,28 @@
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/26f28ab8-fcd0-4335-a273-2d9f9f4e509d" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/baf46c43-216d-48a8-861f-4005fe5c751a" />
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d0351013-d7e7-4262-8b0b-9ccd35a6eb33" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e145667b-d2b6-435c-9800-f23ca4165767" />
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/800e69ec-1e8f-4684-bdf1-101616b688a2" />
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/75a05c22-52b3-4457-b00d-2241ef908bf8" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d3501cbc-77a0-459e-b233-2ea3f112445c" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fbd42023-8349-4f86-8bca-e136d4684a56" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/39dfa21b-c6df-4be8-9971-d2043d3352b7" />
+<img width="1916" height="1080" alt="image" src="https://github.com/user-attachments/assets/1b3c0fb2-8a7d-4257-9a4e-0a273b034728" />
 
-### Demos
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/007b5bcc-0800-4bb2-9510-a3ef2956645c" />
 
-<a href="https://youtu.be/6Hd7L2aBmFk">
-  <img src="https://github.com/user-attachments/assets/dd6360de-0b83-46d4-a005-7fd6a6d57fae" alt="osyx demo">
-</a>
-
-<a href="https://youtu.be/03FGf8kWCvE">
-  <img src="https://github.com/user-attachments/assets/9b1bdf9b-0495-427b-a806-ebcd6b344eea" alt="osyx demo">
-</a>
-
-<a href="https://www.youtube.com/watch?v=agGcxm24N84">
-  <img src="https://github.com/user-attachments/assets/f9606dcd-571d-460a-a33c-3bb0a6166602" alt="osyx demo">
-</a>
-
-<a href="https://youtu.be/hfwcOR_xJJA">
-  <img src="https://github.com/user-attachments/assets/9d7e6c58-34aa-4c89-bf49-758bb13a6913" alt="osyx demo">
-</a>
+### Demo
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/d8ca844a-cfa7-4062-9587-b8a21b02c52e" width="100%" controls>
+    Your browser does not support the video tag.
+  </video>
+</div>
 
 ## TL;DR
 
-This project, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian into the slick, keyboard driven workspace you saw in the demos.
+This project, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian into the slick, keyboard driven workspace.
 
 Not just a collection of dots (although pure dots are found [here](./config/)).
 
