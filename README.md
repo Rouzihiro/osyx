@@ -7,7 +7,7 @@
   <a href="https://github.com/rccyx/osyx/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache-black?style=for-the-badge&color=black&labelColor=111111&logo=apache&logoColor=white" alt="License"/></a>
 </p>
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/26f28ab8-fcd0-4335-a273-2d9f9f4e509d" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fbd42023-8349-4f86-8bca-e136d4684a56" />
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e145667b-d2b6-435c-9800-f23ca4165767" />
 
@@ -15,13 +15,12 @@
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/75a05c22-52b3-4457-b00d-2241ef908bf8" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fbd42023-8349-4f86-8bca-e136d4684a56" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/007b5bcc-0800-4bb2-9510-a3ef2956645c" />
 
 <img width="1916" height="1080" alt="image" src="https://github.com/user-attachments/assets/1b3c0fb2-8a7d-4257-9a4e-0a273b034728" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/007b5bcc-0800-4bb2-9510-a3ef2956645c" />
-
 ### Demo
+
 <div align="center">
   <video src="https://github.com/user-attachments/assets/d8ca844a-cfa7-4062-9587-b8a21b02c52e" width="100%" controls>
     Your browser does not support the video tag.
@@ -52,7 +51,7 @@ If you want to dig through:
 
 These are standalone tools written from scratch, that can be airdropped into any distro. Open sourced gradually (when stable):
 
-### [Lookas](https://github.com/rccyx/lookas)
+### [lookas](https://github.com/rccyx/lookas)
 
 A terminal audio visualizer built around human auditory perception. Moves beyond raw FFT twitchiness using Mel-scaling and spring damper physics.
 
@@ -62,15 +61,29 @@ cargo install lookas && lookas
 
 <p align="center">
   <a href="https://github.com/rccyx/lookas">
-    <img src="./assets/lookas.gif" alt="Lookas Demo" width="100%">
+    <img src="./assets/lookas.gif" alt="Demo" width="100%">
   </a>
 </p>
 
-### Thyx (Next)
+### [asryx](https://github.com/rccyx/asryx)
+
+Pure C++ voice to text binary for Linux, done the UNIX way. No dependencies beyond the standard C++ and Linux toolchain.
+
+<p align="center">
+  <a href="https://github.com/rccyx/asryx">
+    <img src="./assets/asryx.gif" alt="Demo" width="100%">
+  </a>
+</p>
+
+### [thyx](https://github.com/rccyx/thyx)
 
 A QML based SDDM login screen with video backgrounds, fingerprint auth, and a composable design system. Terraform like state management for installation/uninstallation. Contains absolutely zero bloat, and fully configurable.
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/05a48590-e792-425d-8af4-da9072b38b9b" />
+<div align="center">
+  <video title="demo" src="https://github.com/user-attachments/assets/4e52f9d0-ac04-4167-adfc-d14506e9c59c" width="100%" controls>
+    Your browser does not support the video tag.
+  </video>
+</div>
 
 ### Powyx (Unreleased)
 
