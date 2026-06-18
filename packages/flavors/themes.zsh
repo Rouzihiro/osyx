@@ -25,10 +25,15 @@ _osyx_apply_dircolors() {
 }
 
 TRAPUSR1() {
-  [[ -o zle ]] && zle -I
   _osyx_apply_dircolors "TRAPUSR1"
-  clear
-  [[ -o zle ]] && zle reset-prompt 2>/dev/null || true
+
+  if [[ -o zle ]]; then
+    zle -I 2>/dev/null || true
+    clear
+    zle reset-prompt 2>/dev/null || true
+  fi
+
+  return 0
 }
 
 _osyx_autoreload() {
@@ -40,18 +45,49 @@ _osyx_autoreload() {
 
   _OSYX_LAST_RELOAD="$stamp"
   _osyx_apply_dircolors "autoreload"
-  clear
-  [[ -o zle ]] && zle reset-prompt 2>/dev/null || true
+
+  if [[ -o zle ]]; then
+    zle reset-prompt 2>/dev/null || true
+  else
+    clear
+  fi
 }
 
 _osyx_register_autoreload() {
+  typeset -ga precmd_functions
+
   [[ -n "${precmd_functions[(re)_osyx_autoreload]}" ]] && return 0
   precmd_functions+=(_osyx_autoreload)
+}
+
+_osyx_signal_theme_pid() {
+  local pid="$1"
+
+  [[ "$pid" == <-> ]] || return 0
+  [[ "$pid" == "$$" ]] && return 0
+
+  kill -0 "$pid" 2>/dev/null || return 0
+  kill -USR1 "$pid" 2>/dev/null || true
+}
+
+_osyx_signal_idle_zsh() {
+  command -v ps >/dev/null 2>&1 || return 0
+
+  ps -u "$USER" -o pid= -o pgid= -o tpgid= -o tty= -o comm= 2>/dev/null \
+    | while read -r pid pgid tpgid tty comm; do
+        [[ "$tty" != "?" ]] || continue
+        [[ "$pgid" == "$tpgid" ]] || continue
+        [[ "$comm" == "zsh" || "$comm" == "-zsh" ]] || continue
+
+        _osyx_signal_theme_pid "$pid"
+      done
 }
 
 _osyx_reload_all() {
   mkdir -p "${_OSYX_RELOAD_FILE:h}"
   print -r -- "$(date +%s%N)" >| "$_OSYX_RELOAD_FILE"
+
+  _osyx_signal_idle_zsh
 }
 
 _osyx_theme_list() {
@@ -141,6 +177,15 @@ _osyx_write_theme_state() {
   print -r -- "$1" >| "$_OSYX_STATE_FILE" 2>/dev/null || true
 }
 
+_osyx_reload_kitty() {
+  command -v pgrep >/dev/null 2>&1 || return 0
+
+  local pid
+  for pid in ${(f)"$(pgrep -u "$USER" -x kitty 2>/dev/null)"}; do
+    kill -USR1 "$pid" 2>/dev/null || true
+  done
+}
+
 _osyx_reload_tmux() {
   if command -v tmux >/dev/null 2>&1 && tmux list-sessions >/dev/null 2>&1; then
     tmux source-file "$HOME/.tmux.conf" >/dev/null 2>&1 \
@@ -224,9 +269,9 @@ _osyx_apply_thyx() {
   [[ -d "$_OSYX_THYX_DIR" ]] || return 0
 
   if [[ -f "$_OSYX_THYX_PRESETS_DIR/$theme.conf" ]]; then
-    sudo cp -- "$_OSYX_THYX_PRESETS_DIR/$theme.conf" "$_OSYX_THYX_THEME_CONF"
+    cp -- "$_OSYX_THYX_PRESETS_DIR/$theme.conf" "$_OSYX_THYX_THEME_CONF"
   else
-    sudo cp -- "$_OSYX_THYX_PRESETS_DIR/$_OSYX_THYX_FALLBACK.conf" "$_OSYX_THYX_THEME_CONF"
+    cp -- "$_OSYX_THYX_PRESETS_DIR/$_OSYX_THYX_FALLBACK.conf" "$_OSYX_THYX_THEME_CONF"
   fi
 }
 
@@ -237,12 +282,14 @@ _osyx_apply_theme() {
   _osyx_write_theme_state "$theme"
   _osyx_apply_thyx "$theme"
 
+  _osyx_reload_kitty &!
   _osyx_reload_hyprland &!
   _osyx_reload_mako &!
   _osyx_apply_wallpaper "$theme" &!
   _osyx_reload_tmux &!
   _osyx_reload_nvim &!
-  _osyx_reload_all >/dev/null 2>&1 &!
+
+  _osyx_reload_all
 }
 
 themes() {
