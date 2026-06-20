@@ -14,7 +14,7 @@ The static config controls launcher behavior.
 `style.css` is generated theme output.
 
 ```text
-packages/flavors/base/wofi.css.j2
+packages/flavors/templates/wofi.css.j2
         ↓
 packages/flavors/generate.py
         ↓

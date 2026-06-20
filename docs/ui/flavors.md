@@ -31,7 +31,7 @@ The source files are the palettes and templates. Everything else is a generated 
 ```
 packages/flavors/
 ├── palettes/       source palettes
-├── base/           jinja templates
+├── templates/      jinja templates
 ├── backgrounds/    wallpaper files
 ├── generator/      python renderer
 ├── theme/          zsh runtime
@@ -92,7 +92,7 @@ CSS gets RGB. Dircolors gets ANSI. TOML and Lua get raw hex. Every template gets
 
 ## Templates
 
-Templates live in `packages/flavors/base/`. Each one is a normal config file with palette variables inserted through Jinja.
+Templates live in `packages/flavors/templates/`. Each one is a normal config file with palette variables inserted through Jinja.
 
 ```
 dircolors.j2
@@ -133,14 +133,14 @@ color: #{{ wofi_border }};
 The generator writes real config files into `$HOME` from the installed `~/flavors` copy.
 
 ```
-packages/flavors/base/mako.conf.j2       → ~/.config/mako/config
-packages/flavors/base/starship.toml.j2   → ~/.config/starship.toml
-packages/flavors/base/dircolors.j2       → ~/.dircolors
-packages/flavors/base/hypr.conf.j2       → ~/.config/hypr/theme.conf
-packages/flavors/base/tmux.conf.j2       → ~/.tmux.conf
-packages/flavors/base/wofi.css.j2        → ~/.config/wofi/style.css
-packages/flavors/base/nvim.lua.j2        → ~/.config/nvim/lua/theme.lua
-packages/flavors/base/gitconfig.j2       → ~/.gitconfig.d/theme
+packages/flavors/templates/mako.conf.j2       → ~/.config/mako/config
+packages/flavors/templates/starship.toml.j2   → ~/.config/starship.toml
+packages/flavors/templates/dircolors.j2       → ~/.dircolors
+packages/flavors/templates/hypr.conf.j2       → ~/.config/hypr/theme.conf
+packages/flavors/templates/tmux.conf.j2       → ~/.tmux.conf
+packages/flavors/templates/wofi.css.j2        → ~/.config/wofi/style.css
+packages/flavors/templates/nvim.lua.j2        → ~/.config/nvim/lua/theme.lua
+packages/flavors/templates/gitconfig.j2       → ~/.gitconfig.d/theme
 ```
 
 ## Runtime
