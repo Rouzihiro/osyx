@@ -19,6 +19,8 @@
 
 <img width="1916" height="1080" alt="image" src="https://github.com/user-attachments/assets/1b3c0fb2-8a7d-4257-9a4e-0a273b034728" />
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e0b47b54-e56f-4b3c-abe7-299c43561856" />
+
 ### Demo
 
 <div align="center">
@@ -29,20 +31,15 @@
 
 ## TL;DR
 
-This project, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian into the slick, keyboard driven workspace.
+This project, is a highly engineered stack of tooling, configurations, scripts, and custom software that transforms a completely blank, TTY only Debian (starts off without even having `sudo`) into the slick, keyboard driven workspace.
 
 Not just a collection of dots (although pure dots are found [here](./config/)).
 
-Debian is treated mostly as a stable [substrate](/.github/workflows/on-workflow-call-bootstrap.yml) and package source (starts off without even having `sudo`).
-
-> [!IMPORTANT]
-> Some configurations, scripts, programs, etc, are kept private until they're stable enough to release. The rest is here as a mirror and reference material, take what you want.
-
-## Explainers
+## Docs
 
 If you want to dig through:
 
-- [Starting](./docs/starting.md) (Want the eye candy? Theme switching, wallpapers, hypr, etc? How to go by this)
+- [Starting](./docs/starting.md) (Want the eye candy? Instant theme switching, hypr, etc)
 - [Workflow](./docs/workflow.md) (If you reach for a mouse, you've already lost)
 - [Stack](./docs/stack.md) (If it ain't broke don't fix it)
 - [Philosophy](./docs/philosophy.md) (Overall premise and why I'm doing this)
@@ -50,6 +47,16 @@ If you want to dig through:
 ## Custom Tools
 
 These are standalone tools written from scratch, that can be airdropped into any distro. Open sourced gradually (when stable):
+
+### [asryx](https://github.com/rccyx/asryx)
+
+Pure C++ voice to text binary for Linux, done the UNIX way. No dependencies beyond the standard C++ and Linux toolchain.
+
+<p align="center">
+  <a href="https://github.com/rccyx/asryx">
+    <img src="./assets/asryx.gif" alt="Demo" width="100%">
+  </a>
+</p>
 
 ### [lookas](https://github.com/rccyx/lookas)
 
@@ -65,16 +72,6 @@ cargo install lookas && lookas
   </a>
 </p>
 
-### [asryx](https://github.com/rccyx/asryx)
-
-Pure C++ voice to text binary for Linux, done the UNIX way. No dependencies beyond the standard C++ and Linux toolchain.
-
-<p align="center">
-  <a href="https://github.com/rccyx/asryx">
-    <img src="./assets/asryx.gif" alt="Demo" width="100%">
-  </a>
-</p>
-
 ### [thyx](https://github.com/rccyx/thyx)
 
 A QML based SDDM login screen with video backgrounds, fingerprint auth, and a composable design system. Terraform like state management for installation/uninstallation. Contains absolutely zero bloat, and fully configurable.
@@ -85,7 +82,7 @@ A QML based SDDM login screen with video backgrounds, fingerprint auth, and a co
   </video>
 </div>
 
-### Powyx (Unreleased)
+### Powyx (Next)
 
 The glassmorphic power menu from the demo.
 

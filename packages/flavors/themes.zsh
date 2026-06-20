@@ -297,6 +297,7 @@ themes() {
 
   choice="$(_osyx_choose_theme "${1:-}")" || return 1
   _osyx_apply_theme "$choice"
+  clear
 }
 
 _osyx_apply_dircolors "init"
