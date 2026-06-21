@@ -19,7 +19,7 @@
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/007b5bcc-0800-4bb2-9510-a3ef2956645c" />
 
-<img width="1916" height="1080" alt="image" src="https://github.com/user-attachments/assets/1b3c0fb2-8a7d-4257-9a4e-0a273b034728" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/bc9208f7-a41e-4657-8449-ad73ab258a01" />
 
 ### Demo
 
@@ -48,16 +48,6 @@ If you want to dig through:
 
 These are standalone tools written from scratch, that can be airdropped into any distro. Open sourced gradually (when stable):
 
-### [asryx](https://github.com/rccyx/asryx)
-
-Pure C++ voice to text binary for Linux, done the UNIX way. No dependencies beyond the standard C++ and Linux toolchain.
-
-<p align="center">
-  <a href="https://github.com/rccyx/asryx">
-    <img src="./assets/asryx.gif" alt="Demo" width="100%">
-  </a>
-</p>
-
 ### [lookas](https://github.com/rccyx/lookas)
 
 A terminal audio visualizer built around human auditory perception. Moves beyond raw FFT twitchiness using Mel-scaling and spring damper physics.
@@ -72,6 +62,16 @@ cargo install lookas && lookas
   </a>
 </p>
 
+### [asryx](https://github.com/rccyx/asryx)
+
+Pure C++ voice to text binary for Linux, done the UNIX way. No dependencies beyond the standard C++ and Linux toolchain.
+
+<p align="center">
+  <a href="https://github.com/rccyx/asryx">
+    <img src="./assets/asryx.gif" alt="Demo" width="100%">
+  </a>
+</p>
+
 ### [thyx](https://github.com/rccyx/thyx)
 
 A QML based SDDM login screen with video backgrounds, fingerprint auth, and a composable design system. Terraform like state management for installation/uninstallation. Contains absolutely zero bloat, and fully configurable.
@@ -82,7 +82,7 @@ A QML based SDDM login screen with video backgrounds, fingerprint auth, and a co
   </video>
 </div>
 
-### Powyx (Next)
+### Power menu (Next)
 
 The glassmorphic power menu from the demo.
 
