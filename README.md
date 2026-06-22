@@ -24,7 +24,7 @@
 ### Demo
 
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/d8ca844a-cfa7-4062-9587-b8a21b02c52e" width="100%" controls>
+  <video src="https://github.com/user-attachments/assets/2dfe5dcd-08f7-4e5f-8802-9f6263ede7f9" width="100%" controls>
     Your browser does not support the video tag.
   </video>
 </div>
